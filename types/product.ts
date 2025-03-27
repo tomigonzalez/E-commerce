@@ -62,4 +62,5 @@ export type ProductType = {
   category: CategoryType;
   sub_category?: SubCategoryType | null; // Subcategoría opcional
   tipoProducto: null | string;
+  stock:number;
 };

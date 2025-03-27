@@ -99,19 +99,19 @@ export default MenuList;
 const components: { title: string; href: string; description: string }[] = [
   {
     title: "Ropa",
-    href: "/products/Ropa",
+    href: "/products?category=Ropa",
     description:
       "A modal dialog that interrupts the user with important content and expects a response.",
   },
   {
     title: "Accesorios",
-    href: "/products/Accesorios",
+    href: "/products?category=Accesorios",
     description:
       "For sighted users to preview content available behind a link.",
   },
   {
     title: "Hype",
-    href: "/products/Hype",
+    href: "/products?category=Hype",
     description:
       "Displays an indicator showing the completion progress of a task, typically displayed as a progress bar.",
   },

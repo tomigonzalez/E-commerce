@@ -2,8 +2,8 @@ import { useEffect, useState } from "react";
 
 export function useGetCategories() {
   const url = `${process.env.NEXT_PUBLIC_BACKEND_URL}/api/categories?populate=*`;
-  const [result, setResult] = useState(null);
-  const [loading, setLoading] = useState(true);
+  const [categorys, setCategorys] = useState(null);
+  const [loadingg, setLoadingg] = useState(true);
   const [error, setError] = useState("");
 
   useEffect(() => {
@@ -11,16 +11,16 @@ export function useGetCategories() {
       try {
         const res = await fetch(url);
         const json = await res.json();
-        setResult(json.data);
+        setCategorys(json.data);
       } catch (error: any) {
         setError(error.message || "Error fetching data");
       } finally {
-        setLoading(false);
+        setLoadingg(false);
       }
     };
 
     fetchData();
   }, [url]);
 
-  return { loading, result, error };
+  return { loadingg, categorys, error };
 }
