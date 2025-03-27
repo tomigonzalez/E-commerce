@@ -43,7 +43,7 @@ const CarouselTextBanner = () => {
               >
                 <div>
                   <Card className="shadow-none border-none bg-transparent">
-                    <CardContent className="flex flex-col justify-center p-2 items-center text-center">
+                    <CardContent className="flex flex-col justify-center  items-center text-center">
                       <p className="sm:text-lg text-wrap dark:text-secondary">
                         {title}
                       </p>

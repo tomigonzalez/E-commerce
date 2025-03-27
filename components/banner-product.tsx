@@ -7,7 +7,6 @@ type Props = {};
 const BannerProduct = (props: Props) => {
   return (
     <>
-      <div className="h-[350px] bg-cover lg:h-[600px] bg-[url('/subirImg.png')] bg-center mt-5" />
       <div className="mt-4 text-center">
         <p>Sumergete en una experiencia unica</p>
         <h4 className="mt-2 text-5xl font-extrabold uppercase">Titulo</h4>

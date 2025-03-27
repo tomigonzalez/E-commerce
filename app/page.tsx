@@ -8,10 +8,9 @@ export default function Home() {
   return (
     <main>
       <CarouselTextBanner />
-      <FeaturedProducts />
-
+      <div className="h-[350px] bg-cover lg:h-[600px] bg-[url('/subirImg.png')] bg-center" />
       <BannerDiscount />
-
+      <FeaturedProducts />
       <BannerProduct />
     </main>
   );
