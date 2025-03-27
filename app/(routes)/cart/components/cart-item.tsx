@@ -7,12 +7,24 @@ import { useRouter } from "next/navigation";
 import React from "react";
 
 interface CartItemProps {
-  product: ProductType;
+  product: ProductType & { quantity: number }; // Asegúrate de que product tenga la propiedad quantity
 }
 
 const CartItem = (props: CartItemProps) => {
   const router = useRouter();
-  const { removeItem } = useCart();
+  const { removeItem, addItem, removeOneItem } = useCart();
+
+  const handleDecreaseQuantity = () => {
+    if (props.product.quantity > 1) {
+      removeOneItem(props.product.id);
+    } else {
+      removeItem(props.product.id);
+    }
+  };
+
+  const handleIncreaseQuantity = () => {
+    addItem(props.product);
+  };
 
   return (
     <li className="flex py-6 border-b">
@@ -34,6 +46,9 @@ const CartItem = (props: CartItemProps) => {
         <div>
           <h2 className="text-lg font-bold">{props.product.productName}</h2>
           <p className="font-bold">{formatPrice(props.product.price)}</p>
+          <p className="text-sm text-gray-500">
+            Stock disponible: {props.product.stock}
+          </p>
           <div className="flex items-center justify-between gap-3">
             <p className="px-2 py-1 text-white bg-black rounded-full dark:bg-white dark:text-black w-fit">
               {props.product.category?.categoryName ?? "categoría"}
@@ -41,6 +56,23 @@ const CartItem = (props: CartItemProps) => {
             <p className="px-2 py-1 text-white bg-yellow-900 rounded-full w-fit">
               {props.product.sub_category?.subCategoryName ?? "subcategoría"}
             </p>
+          </div>
+          <div className="flex items-center mt-2">
+            <button
+              onClick={handleDecreaseQuantity}
+              className="px-2 py-1 border rounded-l-md"
+            >
+              -
+            </button>
+            <span className="px-3 border-t border-b">
+              {props.product.quantity}
+            </span>
+            <button
+              onClick={handleIncreaseQuantity}
+              className="px-2 py-1 border rounded-r-md"
+            >
+              +
+            </button>
           </div>
         </div>
         <div>
