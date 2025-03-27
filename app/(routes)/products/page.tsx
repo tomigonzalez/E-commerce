@@ -28,7 +28,7 @@ const Page = () => {
     new Set(
       result?.map((p: ProductType) => p.category?.categoryName).filter(Boolean)
     )
-  );
+  ) as string[];
 
   // Aplicar filtros
   const filteredProducts = result
