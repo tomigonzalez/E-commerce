@@ -5,12 +5,11 @@ import MenuList from "./menu-list";
 import ItemsMenuMobile from "./items-menu-mobile";
 import { ToggleTheme } from "./toggle-theme";
 import { useCart } from "@/hooks/use-cart";
-import { useLovedProducts } from "@/hooks/use-loved-products";
 
 const NavBar = () => {
   const router = useRouter();
   const cart = useCart();
-  const { lovedItems } = useLovedProducts();
+
   return (
     <div className="flex items-center justify-between p-4 mx-auto cursor-pointer sm:max-w-4xl md:max-w-6xl">
       <h1 onClick={() => router.push("/")} className="font-bold">
@@ -36,11 +35,6 @@ const NavBar = () => {
           </div>
         )}
 
-        <Heart
-          strokeWidth="1"
-          className={`cursor-pointer ${lovedItems.length > 0 && "fill-black dark:fill-white"}`}
-          onClick={() => router.push("/loved-product")}
-        />
         <User strokeWidth="1" className="cursor-pointer" />
         <ToggleTheme />
       </div>
