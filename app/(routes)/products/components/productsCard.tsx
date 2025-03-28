@@ -20,6 +20,7 @@ const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
     <Card className="border border-gray-200 shadow-sm p-6 sm:p-6">
       <CardContent className="flex flex-col items-center">
         <img
+          loading="lazy"
           src={
             product.images && product.images.length > 0
               ? `${process.env.NEXT_PUBLIC_BACKEND_URL}${product.images[0].url}`
@@ -42,7 +43,7 @@ const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
         <p className="my-2 sm:my-4 text-base sm:text-2xl">
           {formatPrice(product.price)}
         </p>
-        <div className="flex justify-center gap-3 sm:gap-4 mt-2 sm:mt-4">
+        <div className="flex justify-center gap-3 sm:gap-4  sm:mt-2">
           <IconButton
             onClick={() => router.push(`product/${product.slug}`)}
             icon={<Expand size={16} />}

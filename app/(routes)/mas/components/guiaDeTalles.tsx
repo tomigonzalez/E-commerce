@@ -15,6 +15,7 @@ const GuiaDeTalles = () => {
         {/* Columna de imagen */}
         <div className="flex justify-center items-center">
           <Image
+            loading="lazy"
             src="/subirImg.png" // Asegúrate de tener la imagen en la carpeta public/images
             alt="Imagen de guía de talles"
             width={400}

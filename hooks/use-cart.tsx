@@ -12,7 +12,6 @@ interface CartStore {
   addItem: (data: ProductType) => void;
   removeItem: (id: number) => void;
   removeOneItem: (id: number) => void; // Agregamos removeOneItem
-  removeAll: () => void;
 }
 
 export const useCart = create(
@@ -32,20 +31,46 @@ export const useCart = create(
                   : item
               ),
             });
-            toast("Producto añadido al carrito.");
+            toast("Producto añadido al carrito.", {
+              style: {
+                backgroundColor: "#48BB78", // Cambia el color de fondo
+                color: "#FFFFFF", // Cambia el color del texto
+              },
+            });
           } else {
-            toast("No hay suficiente stock disponible.");
+            toast("No hay suficiente stock disponible.", {
+              style: {
+                backgroundColor: "#E6C229", // Cambia el color de fondo
+                color: "#FFFFFF", // Cambia el color del texto
+              },
+            });
           }
         } else {
           set({
             items: [...get().items, { ...data, quantity: 1 }],
           });
-          toast("Producto añadido al carrito.");
+          toast("Producto añadido al carrito.", {
+            style: {
+              backgroundColor: "#48BB78", // Cambia el color de fondo
+              color: "#FFFFFF", // Cambia el color del texto
+            },
+          });
         }
       },
       removeItem: (id: number) => {
-        set({ items: get().items.filter((item) => item.id !== id) });
-        toast("Producto eliminado del carrito.");
+        if (
+          confirm(
+            "¿Estás seguro de que quieres eliminar este producto del carrito?"
+          )
+        ) {
+          set({ items: get().items.filter((item) => item.id !== id) });
+          toast("Producto eliminado del carrito.", {
+            style: {
+              backgroundColor: "#D11149", // Cambia el color de fondo
+              color: "#FFFFFF", // Cambia el color del texto
+            },
+          });
+        }
       },
       removeOneItem: (id: number) => {
         // Implementamos removeOneItem
@@ -61,7 +86,6 @@ export const useCart = create(
             .filter(Boolean) as CartItem[], // Filtramos los null
         });
       },
-      removeAll: () => set({ items: [] }),
     }),
     { name: "cart-storage", storage: createJSONStorage(() => localStorage) }
   )

@@ -7,14 +7,14 @@ import { formatPrice } from "@/lib/formatPrice";
 import CartItem from "./components/cart-item";
 
 export default function Page() {
-  const { items, removeAll } = useCart();
+  const { items } = useCart();
 
   const totalPrice = items.reduce((total, product) => {
     return total + product.price * product.quantity;
   }, 0);
 
   return (
-    <div className="max-w-6xl_px-4 py-16 mx-auto sm:px-6 lg:px-8">
+    <div className="max-w-6xl px-4 py-16 mx-auto sm:px-6 lg:px-8">
       <h1 className="mb-5 text-3xl font-bold">Shopping Cart</h1>
       <div className="grid sm:grid-cols-2 sm:gap-5">
         <div>
