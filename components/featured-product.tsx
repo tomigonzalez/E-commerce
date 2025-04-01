@@ -15,7 +15,7 @@ import { Expand, ShoppingCart } from "lucide-react";
 import IconButton from "./icon-button";
 import { useRouter } from "next/navigation";
 import { useCart } from "@/hooks/use-cart";
-import { useGetProductAll } from "@/api/useProductAll";
+import { useGetProductAll } from "@/api/usePeticionApi";
 
 const FeaturedProducts = () => {
   const { error, loading, result }: ResponseType = useGetProductAll();

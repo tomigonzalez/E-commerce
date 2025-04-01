@@ -11,7 +11,7 @@ const NavBar = () => {
   const cart = useCart();
 
   return (
-    <div className="flex items-center justify-between p-4 mx-auto  sm:max-w-4xl md:max-w-6xl">
+    <div className="flex items-center justify-between p-4 mx-auto sm:max-w-4xl md:max-w-6xl">
       <h1 onClick={() => router.push("/")} className="font-bold">
         TMGC<span className="font-normal">E-commerce</span>
       </h1>

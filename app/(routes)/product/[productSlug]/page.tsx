@@ -1,12 +1,11 @@
 "use client";
 
-import { useGetProductBySlug } from "@/api/getProductBySlug";
-
 import { ResponseType } from "@/types/response";
 import { useParams } from "next/navigation";
 import SkeletonProduct from "../components/skeleton-product";
 import CarouselProduct from "../components/carousel-product";
 import InfoProduct from "../components/info-product";
+import { useGetProductBySlug } from "@/api/usePeticionApi";
 
 export default function Page() {
   const params = useParams();

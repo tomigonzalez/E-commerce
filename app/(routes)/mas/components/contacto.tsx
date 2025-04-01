@@ -1,5 +1,6 @@
 "use client";
-import { useGetContactInfo } from "@/api/getContactInfo";
+
+import { useGetContactInfo } from "@/api/usePeticionApi";
 import SkeletonScheme from "@/components/skeletonScheme";
 import { ResponseType } from "@/types/response";
 import { Phone, Mail, MapPin } from "lucide-react";
@@ -14,7 +15,7 @@ const Contacto = () => {
   const { telefono, email, direccion, whatsapp } = result[0] || {};
 
   return (
-    <div className="p-6 rounded-lg max-w-6xl mx-auto space-y-6 " id="contacto">
+    <div className="p-6 rounded-lg max-w-6xl mx-auto space-y-6 " id="con">
       <h2 className="text-2xl md:text-3xl font-semibold text-center text-gray-800 dark:text-white">
         Contacto
       </h2>

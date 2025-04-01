@@ -1,3 +1,4 @@
+"use client";
 import { useCart } from "@/hooks/use-cart";
 import { formatPrice } from "@/lib/formatPrice";
 import { cn } from "@/lib/utils";

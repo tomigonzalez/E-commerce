@@ -1,6 +1,5 @@
 "use client";
 
-import { useGetProductsByTipo } from "@/api/getTipoProduct";
 import { ResponseType } from "@/types/response";
 import { useParams } from "next/navigation";
 import SkeletonScheme from "@/components/skeletonScheme";
@@ -14,6 +13,7 @@ import { useCart } from "@/hooks/use-cart";
 
 import { formatPrice } from "@/lib/formatPrice";
 import PaginationComponent from "../components/pagination";
+import { useGetProductsByTipo } from "@/api/usePeticionApi";
 
 export default function Page() {
   const params = useParams();

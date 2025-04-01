@@ -1,9 +1,8 @@
 "use client";
 
 import { useSearchParams } from "next/navigation";
-import { useEffect, useState } from "react";
-import { useGetProductAll } from "@/api/useProductAll";
-import { useGetCategories } from "@/api/getCategorys";
+import { useEffect, useState, useMemo, useCallback } from "react";
+
 import SkeletonScheme from "@/components/skeletonScheme";
 
 import PaginationComponent from "./components/pagination";
@@ -11,17 +10,32 @@ import ProductFilters from "@/components/products-filters";
 import { useProductFilters } from "@/hooks/use-filters";
 import ProductCard from "./components/productsCard";
 import { CategoryType } from "@/types/product";
+import { useGetCategories, useGetProductAll } from "@/api/usePeticionApi";
 
 const Page = () => {
   const searchParams = useSearchParams();
   const initialCategory = searchParams.get("category") || "";
 
   const { loading, result: products } = useGetProductAll();
-  const { loadingg: loadingCategories, categorys: allCategories } =
+  const { loading: loadingCategories, result: allCategories } =
     useGetCategories();
-
+  console.log(products);
   const { filters, setFilters, categories, filteredProducts } =
     useProductFilters(products || [], allCategories || []);
+
+  const filteredProductsMemo = useMemo(
+    () => filteredProducts,
+    [filteredProducts]
+  );
+  const categoriesMemo = useMemo(() => categories, [categories]);
+
+  const onFilterChange = useCallback(
+    (newFilters: any) => {
+      setFilters(newFilters);
+      setCurrentPage(1);
+    },
+    [setFilters]
+  );
 
   useEffect(() => {
     if (
@@ -36,30 +50,35 @@ const Page = () => {
 
   const [currentPage, setCurrentPage] = useState(1);
   const itemsPerPage = 6;
-  const totalPages = Math.ceil(filteredProducts.length / itemsPerPage);
+  const totalPages = Math.ceil(filteredProductsMemo.length / itemsPerPage);
 
-  const paginatedProducts = filteredProducts.slice(
-    (currentPage - 1) * itemsPerPage,
-    currentPage * itemsPerPage
-  );
+  const paginatedProducts = useMemo(() => {
+    return filteredProductsMemo.slice(
+      (currentPage - 1) * itemsPerPage,
+      currentPage * itemsPerPage
+    );
+  }, [filteredProductsMemo, currentPage]);
+
+  if (loading || loadingCategories) {
+    return <SkeletonScheme grid={3} />;
+  }
+
+  if (filteredProductsMemo.length === 0) {
+    return (
+      <p className="text-center text-gray-500 m-10">
+        No hay productos en esta categoría
+      </p>
+    );
+  }
 
   return (
     <div className="py-8 sm:py-16 sm:px-4 px-20 mx-auto max-w-screen-lg">
       <h3 className="text-2xl sm:text-3xl sm:pb-8">Productos</h3>
       <ProductFilters
-        categories={categories}
+        categories={categoriesMemo}
         filters={filters}
-        onFilterChange={(newFilters) => {
-          setFilters(newFilters);
-          setCurrentPage(1);
-        }}
+        onFilterChange={onFilterChange}
       />
-      {loading && <SkeletonScheme grid={3} />}
-      {filteredProducts.length === 0 && !loading && (
-        <p className="text-center text-gray-500 m-10">
-          No hay productos en esta categoría
-        </p>
-      )}
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 pt-8">
         {paginatedProducts.map((product) => (
           <ProductCard key={product.id} product={product} />
