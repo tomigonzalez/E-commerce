@@ -1,0 +1,75 @@
+"use client";
+
+import { useUserDataStore } from "@/hooks/user-data";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
+import { Button } from "@/components/ui/button";
+import { useState } from "react";
+import { useShippingQuote } from "./useShippingQuote";
+import { ShippingOption } from "./shippingOptions";
+
+const Shipping = ({
+  onSelectShipping,
+}: {
+  onSelectShipping: (opcion: any) => void;
+}) => {
+  const { nombre, email, telefono, direccion, localidad } = useUserDataStore();
+  const [postalCode, setPostalCode] = useState("");
+
+  const { cotizar, resultados, error, loading } = useShippingQuote();
+
+  const handleSubmit = () => {
+    const destinatario = {
+      name: nombre,
+      company: nombre,
+      email,
+      phone: telefono,
+      street: direccion,
+      number: "2",
+      district: " ",
+      city: localidad,
+      state: "BA",
+      country: "AR",
+      postalCode,
+    };
+
+    cotizar(destinatario, postalCode);
+  };
+
+  return (
+    <div className="max-w-md mx-auto p-6 bg-white border shadow-md rounded-xl">
+      <h2 className="text-xl font-semibold mb-4 text-center text-gray-800">
+        Ingresá tu Código Postal para cotizar el envío
+      </h2>
+
+      <Label htmlFor="postalCode">Código Postal</Label>
+      <Input
+        id="postalCode"
+        value={postalCode}
+        onChange={(e) => setPostalCode(e.target.value)}
+        placeholder="Ej: 1425"
+        className={error ? "border-red-500" : ""}
+      />
+      {error && <p className="text-sm text-red-500 mt-1">{error}</p>}
+
+      <Button onClick={handleSubmit} className="w-full mt-4" disabled={loading}>
+        {loading ? "Cargando..." : "Cotizar Envío"}
+      </Button>
+
+      {resultados.length > 0 && (
+        <div className="mt-6 space-y-4">
+          {resultados.map((res, idx) => (
+            <ShippingOption
+              key={idx}
+              idx={idx}
+              opcion={res}
+              onSelect={onSelectShipping}
+            />
+          ))}
+        </div>
+      )}
+    </div>
+  );
+};
+
+export default Shipping;
