@@ -4,7 +4,7 @@ import { Separator } from "@/components/ui/separator";
 import { useCart } from "@/hooks/use-cart";
 import { formatPrice } from "@/lib/formatPrice";
 import CartItem from "./components/cart-item";
-import api from "@/api/mpCheckout"; // Importa el API de MercadoPago
+
 import { Button } from "@/components/ui/button";
 import { useRouter } from "next/navigation";
 
@@ -15,7 +15,6 @@ export default function Page() {
   const totalPrice = items.reduce((total, product) => {
     return total + product.price * product.quantity;
   }, 0);
-  console.log(items);
 
   // async function handleCheckout() {
   //   try {

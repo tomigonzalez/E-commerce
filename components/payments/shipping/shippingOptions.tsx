@@ -2,7 +2,13 @@ import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Label } from "@/components/ui/label";
 
-export const ShippingOption = ({ opcion, idx, onSelect, isSelected }: any) => {
+export const ShippingOption = ({
+  opcion,
+  idx,
+  onSelect,
+  isSelected,
+  ciudadUsuario,
+}: any) => {
   const [selectedBranchId, setSelectedBranchId] = useState("");
 
   const handleSelect = () => {
@@ -16,6 +22,13 @@ export const ShippingOption = ({ opcion, idx, onSelect, isSelected }: any) => {
     });
   };
 
+  // Filtrar las sucursales por ciudad
+  const filteredBranches =
+    opcion.branches?.filter(
+      (branch: any) =>
+        branch.address.city.toUpperCase() === ciudadUsuario.toUpperCase()
+    ) || [];
+
   return (
     <div className="border rounded p-4 shadow-sm space-y-2">
       <h3 className="font-semibold">{opcion.serviceDescription}</h3>
@@ -23,7 +36,7 @@ export const ShippingOption = ({ opcion, idx, onSelect, isSelected }: any) => {
       <p>Precio: ARS ${opcion.totalPrice.toFixed(2)}</p>
       <p>Entrega estimada: {opcion.deliveryEstimate}</p>
 
-      {opcion.dropOff > 0 && opcion.branches?.length > 0 && (
+      {opcion.dropOff > 0 && filteredBranches.length > 0 && (
         <div>
           <Label htmlFor={`branch-select-${idx}`}>
             Seleccioná una sucursal o punto de retiro
@@ -35,7 +48,7 @@ export const ShippingOption = ({ opcion, idx, onSelect, isSelected }: any) => {
             onChange={(e) => setSelectedBranchId(e.target.value)}
           >
             <option value="">Seleccionar punto</option>
-            {opcion.branches.map((branch: any, bIdx: number) => (
+            {filteredBranches.map((branch: any, bIdx: number) => (
               <option key={bIdx} value={branch.branch_id}>
                 {branch.reference} - {branch.address.street}{" "}
                 {branch.address.number}, {branch.address.city}

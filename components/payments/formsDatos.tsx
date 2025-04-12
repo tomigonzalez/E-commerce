@@ -34,7 +34,12 @@ export const FormsDatos = ({ errors, setErrors, handleNext }: Props) => {
     { name: "nombre", label: "Nombre", type: "text", value: nombre },
     { name: "apellido", label: "Apellido", type: "text", value: apellido },
     { name: "dni", label: "DNI", type: "text", value: dni },
-    { name: "direccion", label: "Dirección", type: "text", value: direccion },
+    {
+      name: "direccion",
+      label: "Calle , Nro y piso",
+      type: "text",
+      value: direccion,
+    },
     { name: "localidad", label: "Localidad", type: "text", value: localidad },
 
     { name: "telefono", label: "Teléfono", type: "text", value: telefono },
@@ -61,7 +66,7 @@ export const FormsDatos = ({ errors, setErrors, handleNext }: Props) => {
         </div>
       ))}
 
-      <div className="flex gap-2 mt-4">
+      <div className="flex gap-2 mt-4 justify-self-end">
         <Button onClick={handleNext} disabled={false}>
           Siguiente
         </Button>

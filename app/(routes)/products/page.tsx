@@ -19,7 +19,7 @@ const Page = () => {
   const { loading, result: products } = useGetProductAll();
   const { loading: loadingCategories, result: allCategories } =
     useGetCategories();
-  console.log(products);
+
   const { filters, setFilters, categories, filteredProducts } =
     useProductFilters(products || [], allCategories || []);
 
@@ -63,27 +63,28 @@ const Page = () => {
     return <SkeletonScheme grid={3} />;
   }
 
-  if (filteredProductsMemo.length === 0) {
-    return (
-      <p className="text-center text-gray-500 m-10">
-        No hay productos en esta categoría
-      </p>
-    );
-  }
-
   return (
     <div className="py-8 sm:py-16 sm:px-4 px-20 mx-auto max-w-screen-lg">
       <h3 className="text-2xl sm:text-3xl sm:pb-8">Productos</h3>
+
       <ProductFilters
         categories={categoriesMemo}
         filters={filters}
         onFilterChange={onFilterChange}
       />
-      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 pt-8">
-        {paginatedProducts.map((product) => (
-          <ProductCard key={product.id} product={product} />
-        ))}
-      </div>
+
+      {filteredProductsMemo.length === 0 ? (
+        <p className="text-center text-gray-500 m-10">
+          No hay productos en esta categoría
+        </p>
+      ) : (
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 pt-8">
+          {paginatedProducts.map((product) => (
+            <ProductCard key={product.id} product={product} />
+          ))}
+        </div>
+      )}
+
       <PaginationComponent
         currentPage={currentPage}
         totalPages={totalPages}

@@ -4,6 +4,7 @@ import { useState } from "react";
 import { Menu, X } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { ToggleTheme } from "./toggle-theme";
+import { Button } from "./ui/button";
 
 const ItemsMenuMobile = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -15,9 +16,9 @@ const ItemsMenuMobile = () => {
   return (
     <div className="sm:hidden">
       {/* Botón para abrir el menú */}
-      <button onClick={toggleMenu} className="p-2">
+      <Button onClick={toggleMenu} className="p-2">
         <Menu size={28} />
-      </button>
+      </Button>
 
       {/* Menú deslizante */}
       <div
@@ -27,37 +28,37 @@ const ItemsMenuMobile = () => {
       >
         {/* Botón para cerrar */}
         <div className="flex justify-end p-4">
-          <button onClick={closeMenu}>
+          <Button onClick={closeMenu}>
             <X size={28} />
-          </button>
+          </Button>
         </div>
 
         {/* Opciones del menú */}
         <nav className="flex flex-col items-start gap-6 p-6 text-lg">
-          <button
+          <Button
             onClick={() => router.push("/")}
             className="hover:text-gray-500"
           >
             Inicio
-          </button>
-          <button
+          </Button>
+          <Button
             onClick={() => router.push("/products")}
             className="hover:text-gray-500"
           >
             Productos
-          </button>
-          <button
+          </Button>
+          <Button
             onClick={() => router.push("/cart")}
             className="hover:text-gray-500"
           >
             Carrito
-          </button>
-          <button
+          </Button>
+          <Button
             onClick={() => router.push("/profile")}
             className="hover:text-gray-500"
           >
             Perfil
-          </button>
+          </Button>
           <ToggleTheme />
         </nav>
       </div>

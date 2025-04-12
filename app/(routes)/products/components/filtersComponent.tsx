@@ -1,5 +1,6 @@
 "use client";
 
+import { Button } from "@/components/ui/button";
 import React, { useState } from "react";
 
 interface Props {
@@ -61,12 +62,12 @@ const ProductFilters: React.FC<Props> = ({ categories, onFilterChange }) => {
           />
         </div>
       </div>
-      <button
+      <Button
         onClick={handleApplyFilters}
         className="bg-black text-white px-4 py-2 rounded-md"
       >
         Aplicar filtros
-      </button>
+      </Button>
     </div>
   );
 };

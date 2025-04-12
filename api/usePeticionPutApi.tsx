@@ -1,6 +1,12 @@
 export async function updateProductStock(products: any[]) {
   try {
-    for (const product of products) {
+    const updateRequests = products.map(async (product) => {
+      const newStock = product.stock - product.quantity;
+
+      console.log(
+        `🔄 Actualizando stock del producto ${product.documentId}: ${newStock}`
+      );
+
       const res = await fetch(
         `${process.env.NEXT_PUBLIC_BACKEND_URL}/api/products/${product.documentId}`,
         {
@@ -10,21 +16,24 @@ export async function updateProductStock(products: any[]) {
           },
           body: JSON.stringify({
             data: {
-              stock: product.quantity - product.quantityPurchased, // Restar stock
+              stock: newStock,
             },
           }),
         }
       );
 
       if (!res.ok) {
+        const errorText = await res.text();
         throw new Error(
-          `Error al actualizar el stock del producto ${product.documentId}`
+          `Error al actualizar el stock del producto ${product.documentId}: ${res.status} - ${errorText}`
         );
       }
-    }
+    });
+
+    await Promise.all(updateRequests);
 
     console.log("✅ Stock actualizado correctamente");
-    localStorage.removeItem("purchasedProducts"); // Limpiar el storage después de actualizar
+    localStorage.removeItem("purchasedProducts");
   } catch (error) {
     console.error("❌ Error al actualizar stock:", error);
   }

@@ -5,8 +5,8 @@ import { useCart } from "@/hooks/use-cart";
 import { useEffect } from "react";
 
 export default function SuccessPage() {
-  const { items } = useCart(); // Obtén los productos del carrito
-
+  const { items, clearCart } = useCart(); // Obtén los productos del carrito
+  console.log(items);
   useEffect(() => {
     if (items.length > 0) {
       // Guardar productos en localStorage
@@ -16,6 +16,7 @@ export default function SuccessPage() {
       updateProductStock(items);
 
       // Limpiar el carrito después de la compra
+      clearCart();
       // Puedes hacer esto en el store Zustand también o aquí
       localStorage.removeItem("cart-storage"); // Limpiar el carrito en localStorage si es necesario
     }

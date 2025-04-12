@@ -15,8 +15,16 @@ const Shipping = ({
   handleNext: () => void;
   handleBack: () => void;
 }) => {
-  const { nombre, email, telefono, direccion, localidad } = useUserDataStore();
-  const [postalCode, setPostalCode] = useState("");
+  const {
+    nombre,
+    email,
+    telefono,
+    direccion,
+    localidad,
+    codigoPostal,
+    setUserData,
+  } = useUserDataStore();
+  const [postalCode, setPostalCode] = useState(codigoPostal || ""); // Inicializar con el código postal ya cargado
   const [selectedOption, setSelectedOption] = useState<any>(null);
   const [hasSubmitted, setHasSubmitted] = useState(false);
 
@@ -39,6 +47,9 @@ const Shipping = ({
 
     setHasSubmitted(true);
     cotizar(destinatario, postalCode);
+
+    // Actualizar el código postal en el store
+    setUserData({ codigoPostal: postalCode });
   };
 
   const handleOptionSelect = (opcion: any) => {
@@ -91,12 +102,13 @@ const Shipping = ({
               isSelected={
                 selectedOption?.serviceDescription === res.serviceDescription
               }
+              ciudadUsuario={localidad} // Aquí pasamos la ciudad del usuario
             />
           ))}
         </div>
       )}
 
-      <div className="flex gap-2 mt-4">
+      <div className="flex gap-2 mt-4 justify-between">
         <Button onClick={handleBack} className="w-auto" disabled={false}>
           Atrás
         </Button>

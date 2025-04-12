@@ -15,8 +15,15 @@ import {
   NavigationMenuTrigger,
   navigationMenuTriggerStyle,
 } from "@/components/ui/navigation-menu";
+import { useRouter } from "next/navigation";
 
 const MenuList = () => {
+  const router = useRouter();
+
+  const handleClick = () => {
+    // Recargar la página al navegar a productos
+    router.push("/products");
+  };
   return (
     <NavigationMenu>
       <NavigationMenuList>
@@ -29,8 +36,13 @@ const MenuList = () => {
         </NavigationMenuItem>
 
         <NavigationMenuItem>
-          <Link href="/products/" legacyBehavior passHref>
-            <NavigationMenuTrigger className="cursor-pointer">
+          <Link href="/products" legacyBehavior passHref>
+            <NavigationMenuTrigger
+              className="cursor-pointer"
+              onClick={() => {
+                window.location.href = "/products";
+              }}
+            >
               Productos
             </NavigationMenuTrigger>
           </Link>

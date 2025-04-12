@@ -1,4 +1,5 @@
 "use client";
+import { Button } from "@/components/ui/button";
 import { useCart } from "@/hooks/use-cart";
 import { formatPrice } from "@/lib/formatPrice";
 import { cn } from "@/lib/utils";
@@ -61,31 +62,31 @@ const CartItem = (props: CartItemProps) => {
             Stock disponible: {props.product.stock}
           </p>
           <div className="flex items-center mt-2">
-            <button
+            <Button
               onClick={handleDecreaseQuantity}
               className="px-2 py-1 border rounded-l-md cursor-pointer"
             >
               -
-            </button>
+            </Button>
             <span className="px-3 border-t border-b ">
               {props.product.quantity}
             </span>
-            <button
+            <Button
               onClick={handleIncreaseQuantity}
               className="px-2 py-1 border rounded-r-md cursor-pointer"
             >
               +
-            </button>
+            </Button>
           </div>
         </div>
         <div>
-          <button
+          <Button
             className={cn(
               "cursor-pointer rounded-full flex items-center justify-center bg-white border shadow-md p-1 hover:scale-110 trasition"
             )}
           >
             <X size={20} onClick={() => removeItem(props.product.id)} />
-          </button>
+          </Button>
         </div>
       </div>
     </li>
