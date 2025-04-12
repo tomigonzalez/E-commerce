@@ -29,7 +29,7 @@ export const useShippingQuote = () => {
           (op) =>
             op.service !== "sucursal" &&
             op.service !== "oca_PS" &&
-            op.service !== "oca_PP"
+            op.service !== "oca_SP"
         )
         .sort((a, b) => a.totalPrice - b.totalPrice);
 

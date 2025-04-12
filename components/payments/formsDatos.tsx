@@ -1,11 +1,13 @@
 import { useUserDataStore } from "@/hooks/user-data";
+import { Button } from "../ui/button";
 
 type Props = {
   errors: Record<string, string>;
   setErrors: (errors: Record<string, string>) => void;
+  handleNext: () => void;
 };
 
-export const FormsDatos = ({ errors, setErrors }: Props) => {
+export const FormsDatos = ({ errors, setErrors, handleNext }: Props) => {
   const {
     email,
     nombre,
@@ -34,12 +36,7 @@ export const FormsDatos = ({ errors, setErrors }: Props) => {
     { name: "dni", label: "DNI", type: "text", value: dni },
     { name: "direccion", label: "Dirección", type: "text", value: direccion },
     { name: "localidad", label: "Localidad", type: "text", value: localidad },
-    {
-      name: "codigoPostal",
-      label: "Código Postal",
-      type: "text",
-      value: codigoPostal,
-    },
+
     { name: "telefono", label: "Teléfono", type: "text", value: telefono },
   ];
 
@@ -63,6 +60,12 @@ export const FormsDatos = ({ errors, setErrors }: Props) => {
           )}
         </div>
       ))}
+
+      <div className="flex gap-2 mt-4">
+        <Button onClick={handleNext} disabled={false}>
+          Siguiente
+        </Button>
+      </div>
     </div>
   );
 };

@@ -11,7 +11,8 @@ interface CartStore {
   items: CartItem[];
   addItem: (data: ProductType) => void;
   removeItem: (id: number) => void;
-  removeOneItem: (id: number) => void; // Agregamos removeOneItem
+  removeOneItem: (id: number) => void;
+  clearCart: () => void; // ✅ Nuevo método
 }
 
 export const useCart = create(
@@ -33,15 +34,15 @@ export const useCart = create(
             });
             toast("Producto añadido al carrito.", {
               style: {
-                backgroundColor: "#48BB78", // Cambia el color de fondo
-                color: "#FFFFFF", // Cambia el color del texto
+                backgroundColor: "#48BB78",
+                color: "#FFFFFF",
               },
             });
           } else {
             toast("No hay suficiente stock disponible.", {
               style: {
-                backgroundColor: "#E6C229", // Cambia el color de fondo
-                color: "#FFFFFF", // Cambia el color del texto
+                backgroundColor: "#E6C229",
+                color: "#FFFFFF",
               },
             });
           }
@@ -51,8 +52,8 @@ export const useCart = create(
           });
           toast("Producto añadido al carrito.", {
             style: {
-              backgroundColor: "#48BB78", // Cambia el color de fondo
-              color: "#FFFFFF", // Cambia el color del texto
+              backgroundColor: "#48BB78",
+              color: "#FFFFFF",
             },
           });
         }
@@ -66,27 +67,38 @@ export const useCart = create(
           set({ items: get().items.filter((item) => item.id !== id) });
           toast("Producto eliminado del carrito.", {
             style: {
-              backgroundColor: "#D11149", // Cambia el color de fondo
-              color: "#FFFFFF", // Cambia el color del texto
+              backgroundColor: "#D11149",
+              color: "#FFFFFF",
             },
           });
         }
       },
       removeOneItem: (id: number) => {
-        // Implementamos removeOneItem
         set({
           items: get()
             .items.map((item) =>
               item.id === id
                 ? item.quantity > 1
                   ? { ...item, quantity: item.quantity - 1 }
-                  : null // Retornamos null para filtrar el producto si la cantidad es 1
+                  : null
                 : item
             )
-            .filter(Boolean) as CartItem[], // Filtramos los null
+            .filter(Boolean) as CartItem[],
+        });
+      },
+      clearCart: () => {
+        set({ items: [] });
+        toast("Carrito vaciado.", {
+          style: {
+            backgroundColor: "#718096",
+            color: "#FFFFFF",
+          },
         });
       },
     }),
-    { name: "cart-storage", storage: createJSONStorage(() => localStorage) }
+    {
+      name: "cart-storage",
+      storage: createJSONStorage(() => localStorage),
+    }
   )
 );

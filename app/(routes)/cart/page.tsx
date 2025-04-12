@@ -6,30 +6,33 @@ import { formatPrice } from "@/lib/formatPrice";
 import CartItem from "./components/cart-item";
 import api from "@/api/mpCheckout"; // Importa el API de MercadoPago
 import { Button } from "@/components/ui/button";
+import { useRouter } from "next/navigation";
 
 export default function Page() {
   const { items } = useCart();
-
+  const router = useRouter();
   // Calculamos el precio total del carrito
   const totalPrice = items.reduce((total, product) => {
     return total + product.price * product.quantity;
   }, 0);
   console.log(items);
 
-  async function handleCheckout() {
-    try {
-      const url = await api.product.submit(items);
-      if (!url) {
-        alert("Hubo un problema con el pago. Inténtalo más tarde.");
-        return;
-      }
-      window.location.href = url;
-    } catch (error) {
-      console.error("Error en el checkout:", error);
-      alert("No se pudo procesar el pago. Inténtalo nuevamente.");
-    }
+  // async function handleCheckout() {
+  //   try {
+  //     const url = await api.product.submit(items);
+  //     if (!url) {
+  //       alert("Hubo un problema con el pago. Inténtalo más tarde.");
+  //       return;
+  //     }
+  //     window.location.href = url;
+  //   } catch (error) {
+  //     console.error("Error en el checkout:", error);
+  //     alert("No se pudo procesar el pago. Inténtalo nuevamente.");
+  //   }
+  // }
+  function handleCheckout() {
+    router.push("/checkout"); // <- Redirigimos al checkout
   }
-
   return (
     <div className="max-w-6xl px-4 py-16 mx-auto sm:px-6 lg:px-8">
       <h1 className="mb-5 text-3xl font-bold">Shopping Cart</h1>

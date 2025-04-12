@@ -5,7 +5,7 @@ interface UserData {
   dni: string;
   direccion: string;
   localidad: string;
-  codigoPostal: string;
+
   telefono: string;
 }
 
@@ -34,10 +34,6 @@ export const validateUserData = (data: UserData) => {
 
   if (!data.localidad) {
     errors.localidad = "Localidad es requerida";
-  }
-
-  if (!data.codigoPostal || !/^\d{4,5}$/.test(data.codigoPostal)) {
-    errors.codigoPostal = "Código postal inválido";
   }
 
   if (!data.telefono || !/^\d{7,15}$/.test(data.telefono)) {

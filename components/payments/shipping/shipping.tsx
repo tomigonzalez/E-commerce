@@ -1,5 +1,3 @@
-"use client";
-
 import { useUserDataStore } from "@/hooks/user-data";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -10,11 +8,17 @@ import { ShippingOption } from "./shippingOptions";
 
 const Shipping = ({
   onSelectShipping,
+  handleNext,
+  handleBack,
 }: {
   onSelectShipping: (opcion: any) => void;
+  handleNext: () => void;
+  handleBack: () => void;
 }) => {
   const { nombre, email, telefono, direccion, localidad } = useUserDataStore();
   const [postalCode, setPostalCode] = useState("");
+  const [selectedOption, setSelectedOption] = useState<any>(null);
+  const [hasSubmitted, setHasSubmitted] = useState(false);
 
   const { cotizar, resultados, error, loading } = useShippingQuote();
 
@@ -33,8 +37,28 @@ const Shipping = ({
       postalCode,
     };
 
+    setHasSubmitted(true);
     cotizar(destinatario, postalCode);
   };
+
+  const handleOptionSelect = (opcion: any) => {
+    setSelectedOption(opcion);
+    onSelectShipping(opcion);
+  };
+
+  const retiroEnLocalOption = {
+    serviceDescription: "Retiro en local",
+    carrier: "Sucursal",
+    totalPrice: 0,
+    deliveryEstimate: "Disponible inmediatamente",
+    dropOff: 0,
+    branches: [],
+  };
+
+  const opcionesDisponibles =
+    resultados.length > 0
+      ? [...resultados, retiroEnLocalOption]
+      : [retiroEnLocalOption];
 
   return (
     <div className="max-w-md mx-auto p-6 bg-white border shadow-md rounded-xl">
@@ -56,18 +80,34 @@ const Shipping = ({
         {loading ? "Cargando..." : "Cotizar Envío"}
       </Button>
 
-      {resultados.length > 0 && (
+      {hasSubmitted && !error && (
         <div className="mt-6 space-y-4">
-          {resultados.map((res, idx) => (
+          {opcionesDisponibles.map((res, idx) => (
             <ShippingOption
               key={idx}
               idx={idx}
               opcion={res}
-              onSelect={onSelectShipping}
+              onSelect={handleOptionSelect}
+              isSelected={
+                selectedOption?.serviceDescription === res.serviceDescription
+              }
             />
           ))}
         </div>
       )}
+
+      <div className="flex gap-2 mt-4">
+        <Button onClick={handleBack} className="w-auto" disabled={false}>
+          Atrás
+        </Button>
+        <Button
+          onClick={handleNext}
+          className="w-auto"
+          disabled={!selectedOption}
+        >
+          Siguiente
+        </Button>
+      </div>
     </div>
   );
 };
