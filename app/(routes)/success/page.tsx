@@ -12,8 +12,6 @@ export default function SuccessPage() {
     if (items.length > 0) {
       localStorage.setItem("purchasedProducts", JSON.stringify(items));
 
-      console.log(items);
-
       updateProductStock(items);
 
       clearCart();

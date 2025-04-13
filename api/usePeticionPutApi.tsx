@@ -29,10 +29,6 @@ export async function updateProductStock(products: any[]) {
           const current = sizeMap[size] ?? 0;
           const newStock = current - quantity;
 
-          console.log(
-            `🔄 Descontando stock del talle ${size}: ${current} - ${quantity} = ${newStock}`
-          );
-
           sizeMap[size] = newStock >= 0 ? newStock : 0;
         }
 
@@ -42,11 +38,6 @@ export async function updateProductStock(products: any[]) {
             size,
             stock,
           })
-        );
-
-        console.log(
-          `🔄 Actualizando stock del producto ${documentId}:`,
-          updatedSizeStock
         );
 
         // Enviamos el PUT
