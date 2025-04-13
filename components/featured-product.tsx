@@ -11,7 +11,7 @@ import {
 import SkeletonScheme from "./skeletonScheme";
 import { ProductType } from "@/types/product";
 import { Card, CardContent } from "./ui/card";
-import { Expand, ShoppingCart } from "lucide-react";
+import { Expand } from "lucide-react";
 import IconButton from "./icon-button";
 import { useRouter } from "next/navigation";
 import { useCart } from "@/hooks/use-cart";
@@ -21,7 +21,6 @@ const FeaturedProducts = () => {
   const { error, loading, result }: ResponseType = useGetProductAll();
 
   const router = useRouter();
-  const { addItem } = useCart();
 
   return (
     <div className="max-w-6xl py-4 mx-auto sm:py-16 sm:px-24">
@@ -56,11 +55,6 @@ const FeaturedProducts = () => {
                                 router.push(`product/${product.slug}`)
                               }
                               icon={<Expand size={20} />}
-                              className="text-gray-600 cursor-pointer"
-                            />
-                            <IconButton
-                              onClick={() => addItem(product)}
-                              icon={<ShoppingCart size={20} />}
                               className="text-gray-600 cursor-pointer"
                             />
                           </div>

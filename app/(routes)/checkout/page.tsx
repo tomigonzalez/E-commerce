@@ -54,7 +54,10 @@ const CheckoutProgress = () => {
           <h2 className="text-lg font-semibold mb-3">Resumen del carrito</h2>
           <ul className="flex flex-col gap-4 max-h-[400px] overflow-auto">
             {items.map((item) => (
-              <CartSummaryItem key={item.id} product={item} />
+              <CartSummaryItem
+                key={`${item.id}-${item.sizeSelected}`}
+                product={item}
+              />
             ))}
           </ul>
         </div>

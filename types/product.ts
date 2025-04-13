@@ -45,6 +45,11 @@ export type SubCategoryType = {
   updatedAt: string;
   publishedAt: string;
 };
+export type SizeStockType = {
+  id: number; 
+  size: "XS" | "S" | "M" | "L" | "XL"| "XXL"| "XXXL";
+  stock: number;
+};
 
 export type ProductType = {
   id: number;
@@ -62,5 +67,5 @@ export type ProductType = {
   category: CategoryType;
   sub_category?: SubCategoryType | null; // Subcategoría opcional
   tipoProducto: null | string;
-  stock:number;
+  size_stock:SizeStockType[];
 };
