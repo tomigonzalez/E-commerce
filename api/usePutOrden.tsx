@@ -1,7 +1,7 @@
 export async function updateOrderStatus(orderId: string, newStatus: string) {
   try {
     const res = await fetch(
-      `${process.env.NEXT_PUBLIC_STRAPI_URL}/api/ordens/${orderId}`,
+      `${process.env.NEXT_PUBLIC_BACKEND_URL}/api/ordens/${orderId}`,
       {
         method: "PUT",
         headers: {

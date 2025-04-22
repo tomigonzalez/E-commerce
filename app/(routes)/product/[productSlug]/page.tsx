@@ -1,31 +1,38 @@
-"use client";
-
-import { ResponseType } from "@/types/response";
-import { useParams } from "next/navigation";
-import SkeletonProduct from "../components/skeleton-product";
+// app/producto/[productSlug]/page.tsx
+import { notFound } from "next/navigation";
+import { ProductType } from "@/types/product";
 import CarouselProduct from "../components/carousel-product";
 import InfoProduct from "../components/info-product";
-import { useGetProductBySlug } from "@/api/usePeticionApi";
 
-export default function Page() {
-  const params = useParams();
+interface Props {
+  params: {
+    productSlug: string;
+  };
+}
+
+export default async function Page({ params }: Props) {
   const { productSlug } = params;
 
-  const { error, loading, result }: ResponseType =
-    useGetProductBySlug(productSlug);
+  const res = await fetch(
+    `${process.env.NEXT_PUBLIC_BACKEND_URL}/api/products?filters[slug][$eq]=${productSlug}&populate=*`,
+    { cache: "no-store" }
+  );
 
-  if (result == null) {
-    return <SkeletonProduct />;
-  }
+  if (!res.ok) return notFound();
+
+  const data = await res.json();
+  const product: ProductType | null = data?.data?.[0] || null;
+
+  if (!product) return notFound();
 
   return (
     <div className="max-w-6xl py-4 mx-auto sm:py-32 sm:px-24">
       <div className="grid sm:grid-cols-2">
         <div>
-          {result[0]?.images && <CarouselProduct images={result[0].images} />}
+          {product.images && <CarouselProduct images={product.images} />}
         </div>
         <div className="sm:px-12">
-          <InfoProduct product={result[0]} />
+          <InfoProduct product={product} />
         </div>
       </div>
     </div>

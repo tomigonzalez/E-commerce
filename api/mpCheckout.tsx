@@ -25,7 +25,7 @@ const api = {
             method: "POST",
             headers: {
               "Content-Type": "application/json",
-              Authorization: `Bearer APP_USR-563550573701914-033000-589367fb2bbc009fe8259ffbf8eb4f55-2356480963`, // ⚠️ Usá variables de entorno
+              Authorization: `Bearer ${process.env.MP_ACCESS_TOKEN}`, // ⚠️ Usá variables de entorno
             },
             body: JSON.stringify({
               items,

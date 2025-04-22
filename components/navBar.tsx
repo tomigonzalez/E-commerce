@@ -5,15 +5,17 @@ import MenuList from "./menu-list";
 import ItemsMenuMobile from "./items-menu-mobile";
 import { ToggleTheme } from "./toggle-theme";
 import { useCart } from "@/hooks/use-cart";
+import { useHomeData } from "@/hooks/use-homeData";
 
 const NavBar = () => {
   const router = useRouter();
   const cart = useCart();
+  const homeData = useHomeData((state) => state.data);
 
   return (
     <div className="flex items-center justify-between p-4 mx-auto sm:max-w-4xl md:max-w-6xl">
       <h1 onClick={() => router.push("/")} className="font-bold">
-        TMGC<span className="font-normal">E-commerce</span>
+        {homeData?.[0]?.tituloHero}
       </h1>
       <div className="items-center justify-between hidden sm:flex">
         <MenuList />
@@ -35,7 +37,6 @@ const NavBar = () => {
           </div>
         )}
 
-        <User strokeWidth="1" className="cursor-pointer" />
         <ToggleTheme />
       </div>
     </div>

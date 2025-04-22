@@ -38,11 +38,6 @@ export function useGetProductsByTipo(
   return useFetchData(url); // Reutilizamos el hook genérico
 }
 
-export function useGetProductBySlug(slug: string | string[] | undefined) {
-  const url = `${process.env.NEXT_PUBLIC_BACKEND_URL}/api/products?filters[slug][$eq]=${slug}&populate=*`;
-  return useFetchData(url); // Reutilizamos el hook genérico
-}
-
 export function useGetCategories() {
   const url = `${process.env.NEXT_PUBLIC_BACKEND_URL}/api/categories?populate=*`;
   return useFetchData<CategoryType[]>(url); // Reutilizamos el hook genérico

@@ -1,22 +1,90 @@
-import Link from "next/link";
-import React from "react";
-import { buttonVariants } from "./ui/button";
+"use client";
 
-type Props = {};
+import {
+  Carousel,
+  CarouselContent,
+  CarouselItem,
+} from "@/components/ui/carousel";
+import { Card, CardContent } from "@/components/ui/card";
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import { Star } from "lucide-react";
+import Autoplay from "embla-carousel-autoplay";
 
-const BannerProduct = (props: Props) => {
+const reviews = [
+  {
+    name: "María",
+    avatar: "/users/maria.jpg",
+    rating: 5,
+    comment: "¡Producto increíble! Superó mis expectativas.",
+  },
+  {
+    name: "Carlos",
+    avatar: "/users/carlos.jpg",
+    rating: 4,
+    comment: "Muy bueno, aunque el envío tardó un poco.",
+  },
+  {
+    name: "Lucía",
+    avatar: "/users/lucia.jpg",
+    rating: 5,
+    comment: "Me encantó la calidad, definitivamente volveré a comprar.",
+  },
+  {
+    name: "Pedro",
+    avatar: "/users/pedro.jpg",
+    rating: 3,
+    comment: "Está bien, pero esperaba algo más.",
+  },
+  {
+    name: "Ana",
+    avatar: "/users/ana.jpg",
+    rating: 5,
+    comment: "Excelente atención y producto de primera calidad.",
+  },
+];
+
+const ReviewsCarousel = () => {
   return (
-    <>
-      <div className="mt-4 text-center">
-        <p>Sumergete en una experiencia unica</p>
-        <h4 className="mt-2 text-5xl font-extrabold uppercase">Titulo</h4>
-        <p className="my-2 text-lg">Ingrese una descripcion</p>
-        <Link href={"#"} className={buttonVariants()}>
-          Comprar
-        </Link>
-      </div>
-    </>
+    <div className="max-w-6xl py-4 mx-auto sm:py-16 sm:px-24">
+      <h3 className="px-6 text-3xl sm:pb-8">Reseñas</h3>
+      <Carousel
+        plugins={[Autoplay({ delay: 1500 })]}
+        opts={{ align: "start", loop: true }}
+        className="w-full"
+      >
+        <CarouselContent className="-ml-2">
+          {reviews.map((review, index) => (
+            <CarouselItem
+              key={index}
+              className="pl-2 md:basis-[49%] ml-1 mr-1" // 2 por slide
+            >
+              <Card>
+                <CardContent className="flex flex-col items-start p-4">
+                  <div className="flex items-center gap-5">
+                    <Avatar>
+                      <AvatarImage src={review.avatar} />
+                      <AvatarFallback>{review.name[0]}</AvatarFallback>
+                    </Avatar>
+                    <div>
+                      <p className="font-bold">{review.name}</p>
+                      <div className="flex text-yellow-500">
+                        {[...Array(review.rating)].map((_, i) => (
+                          <Star key={i} className="w-4 h-4 fill-yellow-500" />
+                        ))}
+                      </div>
+                    </div>
+                  </div>
+                  <p className="text-sm text-muted-foreground">
+                    {review.comment}
+                  </p>
+                </CardContent>
+              </Card>
+            </CarouselItem>
+          ))}
+        </CarouselContent>
+      </Carousel>
+    </div>
   );
 };
 
-export default BannerProduct;
+export default ReviewsCarousel;

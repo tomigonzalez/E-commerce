@@ -20,7 +20,7 @@ export async function POST(req: Request) {
       {
         method: "GET",
         headers: {
-          Authorization: `Bearer APP_USR-563550573701914-033000-589367fb2bbc009fe8259ffbf8eb4f55-2356480963`, // Usa variables de entorno
+          Authorization: `Bearer ${process.env.MP_ACCESS_TOKEN}`, // Usa variables de entorno
         },
       }
     );
