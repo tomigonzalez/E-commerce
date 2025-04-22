@@ -20,7 +20,7 @@ export async function cotizarEnvioConCarrier(
     method: "POST",
     headers: {
       "Content-Type": "application/json",
-      Authorization: `Bearer ${process.env.SHIPPING_ACCESS_TOKEN}`,
+      Authorization: `Bearer abe814e5d57fa6bdb64fbb89d7a89b954772820b84ea9b468749b8dea274a0d1`,
     },
     body: JSON.stringify({
       origin: {

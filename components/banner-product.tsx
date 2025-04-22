@@ -13,33 +13,34 @@ import Autoplay from "embla-carousel-autoplay";
 const reviews = [
   {
     name: "María",
-    avatar: "/users/maria.jpg",
+
     rating: 5,
     comment: "¡Producto increíble! Superó mis expectativas.",
   },
   {
     name: "Carlos",
-    avatar: "/users/carlos.jpg",
+
     rating: 4,
     comment: "Muy bueno, aunque el envío tardó un poco.",
   },
   {
     name: "Lucía",
-    avatar: "/users/lucia.jpg",
+
     rating: 5,
     comment: "Me encantó la calidad, definitivamente volveré a comprar.",
   },
   {
     name: "Pedro",
-    avatar: "/users/pedro.jpg",
+
     rating: 3,
     comment: "Está bien, pero esperaba algo más.",
   },
   {
     name: "Ana",
-    avatar: "/users/ana.jpg",
+
     rating: 5,
-    comment: "Excelente atención y producto de primera calidad.",
+    comment:
+      "Excelente atención y producto de primera calidad.Excelente atención y producto de primera calidad.Excelente atención y producto de primera calidad.Excelente atención y producto de primera calidad.",
   },
 ];
 
@@ -60,9 +61,8 @@ const ReviewsCarousel = () => {
             >
               <Card>
                 <CardContent className="flex flex-col items-start p-4">
-                  <div className="flex items-center gap-5">
+                  <div className="flex items-center gap-5 mb-2">
                     <Avatar>
-                      <AvatarImage src={review.avatar} />
                       <AvatarFallback>{review.name[0]}</AvatarFallback>
                     </Avatar>
                     <div>
@@ -74,7 +74,7 @@ const ReviewsCarousel = () => {
                       </div>
                     </div>
                   </div>
-                  <p className="text-sm text-muted-foreground">
+                  <p className="text-sm text-muted-foreground line-clamp-2">
                     {review.comment}
                   </p>
                 </CardContent>

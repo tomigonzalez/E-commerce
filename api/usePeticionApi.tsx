@@ -1,26 +1,38 @@
 import { CategoryType, ProductType } from "@/types/product";
 import { useEffect, useState } from "react";
-
-// Hook genérico para hacer peticiones
 export function useFetchData<T>(url: string) {
   const [result, setResult] = useState<T | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
 
   useEffect(() => {
+    const controller = new AbortController();
+    const { signal } = controller;
+
     const fetchData = async () => {
       try {
-        const res = await fetch(url);
+        const res = await fetch(url, { signal });
+        if (!res.ok) {
+          throw new Error(`HTTP error! status: ${res.status}`);
+        }
         const json = await res.json();
         setResult(json.data);
       } catch (error: any) {
-        setError(error.message || "Error fetching data");
+        if (error.name === "AbortError") {
+          // La petición fue cancelada, no hacer nada
+        } else {
+          setError(error.message || "Error fetching data");
+        }
       } finally {
         setLoading(false);
       }
     };
 
     fetchData();
+
+    return () => {
+      controller.abort(); // Cancela la petición al desmontar el componente
+    };
   }, [url]);
 
   return { loading, result, error };

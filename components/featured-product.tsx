@@ -23,7 +23,7 @@ const FeaturedProducts = () => {
   const router = useRouter();
 
   return (
-    <div className="max-w-6xl py-4 mx-auto sm:py-16 sm:px-24">
+    <div className="max-w-6xl py-2 mx-auto sm:py-14 sm:px-24">
       <h3 className="px-6 text-3xl sm:pb-8">Producto destacado</h3>
       <Carousel>
         <CarouselContent className="ml-2 md:ml-4">
@@ -46,7 +46,7 @@ const FeaturedProducts = () => {
                               : "/subirImg.png"
                           }
                           alt={product.productName}
-                          className="object-cover max-h-60 w-full rounded-md"
+                          className="object-contain max-h-60 w-full rounded-md"
                         />
                         <div className="absolute w-full px-6 transition duration-200 opacity-0 group-hover:opacity-100 bottom-5">
                           <div className="flex justify-center gap-x-6">

@@ -1,30 +1,38 @@
-import Link from "next/link";
 import React from "react";
-import { buttonVariants } from "./ui/button";
+import { Truck, CreditCard, ShieldCheck } from "lucide-react"; // Assuming you are using Lucide icons
 
 type Props = {};
 
-const BannerDiscount = (props: Props) => {
+const InfoBanner = (props: Props) => {
   return (
-    <div className="p-5 sm:p-20 text-center">
-      <h2 className="uppercase font-black text-2xl text-primary">
-        Consigue hasta un -25%
-      </h2>
-      <h3 className="mt-3 font-semibold">
-        Lorem ipsum dolor sit amet consectetur adipisicing elit. Saepe veniam
-        impedit provident odio minima tempora voluptatibus, quaerat, officiis
-        cum est quia vel sit eos tenetur delectus sapiente et labore ab.
-      </h3>
-      <div className="max-w-md mx-auto sm:flex justify-center gap-8 mt-5">
-        <Link href="#" className={buttonVariants()}>
-          Comprar
-        </Link>
-        <Link href="#" className={buttonVariants({ variant: "outline" })}>
-          Mas info
-        </Link>
+    <div className="bg-gray-100 py-2 sm:py-8">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex justify-around items-center">
+        <div className="text-center">
+          <Truck className="w-8 h-8 text-gray-500 mx-auto mb-2" />
+          <h3 className="text-sm font-semibold text-gray-700">
+            ENVÍOS A TODO EL PAÍS
+          </h3>
+          <p className="text-xs text-gray-500">
+            Envíos gratis a partir de $90.000
+          </p>
+        </div>
+        <div className="text-center">
+          <CreditCard className="w-8 h-8 text-gray-500 mx-auto mb-2" />
+          <h3 className="text-sm font-semibold text-gray-700">
+            TARJETA DE CRÉDITO
+          </h3>
+          <p className="text-xs text-gray-500">3 y 6 cuotas sin interés</p>
+        </div>
+        <div className="text-center">
+          <ShieldCheck className="w-8 h-8 text-gray-500 mx-auto mb-2" />
+          <h3 className="text-sm font-semibold text-gray-700">SEGURIDAD</h3>
+          <p className="text-xs text-gray-500">
+            Todos tus datos están protegidos
+          </p>
+        </div>
       </div>
     </div>
   );
 };
 
-export default BannerDiscount;
+export default InfoBanner;

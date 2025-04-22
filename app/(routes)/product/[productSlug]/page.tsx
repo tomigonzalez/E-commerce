@@ -14,8 +14,7 @@ export default async function Page({ params }: Props) {
   const { productSlug } = params;
 
   const res = await fetch(
-    `${process.env.NEXT_PUBLIC_BACKEND_URL}/api/products?filters[slug][$eq]=${productSlug}&populate=*`,
-    { cache: "no-store" }
+    `${process.env.NEXT_PUBLIC_BACKEND_URL}/api/products?filters[slug][$eq]=${productSlug}&populate=*`
   );
 
   if (!res.ok) return notFound();
