@@ -3,7 +3,14 @@ import { notFound } from "next/navigation";
 import { ProductType } from "@/types/product";
 import CarouselProduct from "../components/carousel-product";
 import InfoProduct from "../components/info-product";
-const Page = async ({ params }: { params: { productSlug: string } }) => {
+
+interface Props {
+  params: {
+    productSlug: string;
+  };
+}
+
+const Page = async ({ params }: Props) => {
   const { productSlug } = params;
 
   const res = await fetch(
@@ -17,7 +24,6 @@ const Page = async ({ params }: { params: { productSlug: string } }) => {
 
   if (!product) return notFound();
 
-  // Render
   return (
     <div className="max-w-6xl py-4 mx-auto sm:py-32 sm:px-24">
       <div className="grid sm:grid-cols-2">
