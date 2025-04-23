@@ -4,10 +4,12 @@ import { ProductType } from "@/types/product";
 import CarouselProduct from "../components/carousel-product";
 import InfoProduct from "../components/info-product";
 
+interface Params {
+  productSlug: string;
+}
+
 interface Props {
-  params: {
-    productSlug: string;
-  };
+  params: Params;
 }
 
 const Page = async ({ params }: Props) => {
