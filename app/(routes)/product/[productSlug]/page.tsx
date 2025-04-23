@@ -4,13 +4,11 @@ import { ProductType } from "@/types/product";
 import CarouselProduct from "../components/carousel-product";
 import InfoProduct from "../components/info-product";
 
-interface Props {
-  params: {
-    productSlug: string;
-  };
-}
-
-export default async function Page({ params }: Props) {
+export default async function Page({
+  params,
+}: {
+  params: { productSlug: string };
+}) {
   const { productSlug } = params;
 
   const res = await fetch(
