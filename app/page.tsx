@@ -3,6 +3,7 @@ import BannerDiscount from "@/components/banner-discount";
 import BannerProduct from "@/components/banner-product";
 import CarouselTextBanner from "@/components/carousel-text-banner";
 import FeaturedProducts from "@/components/featured-product";
+import GaleryHome from "@/components/galeryHome";
 import { useHomeData } from "@/hooks/use-homeData";
 
 export default function Home() {
@@ -23,7 +24,7 @@ export default function Home() {
 
       <FeaturedProducts />
       <BannerDiscount />
-
+      <GaleryHome />
       <BannerProduct />
     </main>
   );
