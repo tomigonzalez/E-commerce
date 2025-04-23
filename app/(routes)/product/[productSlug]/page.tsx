@@ -1,18 +1,10 @@
-// app/producto/[productSlug]/page.tsx
 import { notFound } from "next/navigation";
 import { ProductType } from "@/types/product";
 import CarouselProduct from "../components/carousel-product";
 import InfoProduct from "../components/info-product";
 
-interface Params {
-  productSlug: string;
-}
-
-interface Props {
-  params: Params;
-}
-
-const Page = async ({ params }: Props) => {
+// No declares Props ni params: deja que Next lo maneje internamente
+const Page = async ({ params }: { params: { productSlug: string } }) => {
   const { productSlug } = params;
 
   const res = await fetch(
