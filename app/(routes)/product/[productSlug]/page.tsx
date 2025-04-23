@@ -3,12 +3,16 @@ import { ProductType } from "@/types/product";
 import CarouselProduct from "../components/carousel-product";
 import InfoProduct from "../components/info-product";
 
-// No declares Props ni params: deja que Next lo maneje internamente
-const Page = async ({ params }: { params: { productSlug: string } }) => {
+type Props = {
+  params: { productSlug: string };
+};
+
+export default async function Page({ params }: Props) {
   const { productSlug } = params;
 
   const res = await fetch(
-    `${process.env.NEXT_PUBLIC_BACKEND_URL}/api/products?filters[slug][$eq]=${productSlug}&populate=*`
+    `${process.env.NEXT_PUBLIC_BACKEND_URL}/api/products?filters[slug][$eq]=${productSlug}&populate=*`,
+    { cache: "no-store" } // 👈 Esto ayuda a evitar bugs con el fetch
   );
 
   if (!res.ok) return notFound();
@@ -30,6 +34,4 @@ const Page = async ({ params }: { params: { productSlug: string } }) => {
       </div>
     </div>
   );
-};
-
-export default Page;
+}
