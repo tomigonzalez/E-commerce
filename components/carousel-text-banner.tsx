@@ -7,7 +7,6 @@ import { useHomeData } from "@/hooks/use-homeData";
 // Asegúrate de la ruta correcta
 
 const CarouselTextBanner = () => {
-  const router = useRouter();
   const homeData = useHomeData((state) => state.data);
   const mostrarDescuento = homeData?.[0]?.mostrarBannerDescuento;
   const bannerText = homeData?.[0]?.bannerDescuentoTexto;

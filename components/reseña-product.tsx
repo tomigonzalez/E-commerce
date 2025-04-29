@@ -39,8 +39,7 @@ const reviews = [
     name: "Ana",
 
     rating: 5,
-    comment:
-      "Excelente atención y producto de primera calidad.Excelente atención y producto de primera calidad.Excelente atención y producto de primera calidad.Excelente atención y producto de primera calidad.",
+    comment: "Excelente atención y producto de primera calidad.",
   },
 ];
 

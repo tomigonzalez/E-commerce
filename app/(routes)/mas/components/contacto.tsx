@@ -12,7 +12,7 @@ const Contacto = () => {
   if (loading) return <SkeletonScheme grid={1} />;
   if (error) return <p>Error al cargar la información.</p>;
 
-  const { telefono, email, direccion, whatsapp } = result[0] || {};
+  const { telefono, email, direccion, whatsapp } = result?.[0] || {};
 
   return (
     <div className="p-6 rounded-lg max-w-6xl mx-auto space-y-6 " id="con">

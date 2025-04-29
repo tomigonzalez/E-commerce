@@ -14,6 +14,7 @@ interface HomeData {
   mostrarBannerDescuento?: boolean;
   bannerDescuentoTexto?: string;
   imagenHero: Media[]; // Cambiamos string a un array de objetos Media
+  galeriaImg: Media[];
 }
 
 interface HomeDataState {
