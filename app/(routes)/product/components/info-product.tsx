@@ -38,7 +38,7 @@ const InfoProduct = ({ product }: InfoProductProps) => {
           <p className="px-2 py-1 text-xs text-white bg-black rounded-full dark:bg-white dark:text-black w-fit">
             {product.category.categoryName}
           </p>
-          <p className="px-2 py-1 text-xs text-white bg-yellow-900 rounded-full">
+          <p className="px-2 py-1 text-xs text-white bg-defaultUser rounded-full">
             {product.sub_category?.subCategoryName}
           </p>
         </div>

@@ -61,7 +61,7 @@ const CartItem = ({ product }: CartItemProps) => {
             <p className="px-2 py-1 text-white bg-black rounded-full dark:bg-white dark:text-black w-fit">
               {product.category?.categoryName ?? "categoría"}
             </p>
-            <p className="px-2 py-1 text-white bg-yellow-900 rounded-full w-fit">
+            <p className="px-2 py-1 text-white bg-defaultUser rounded-full w-fit">
               {product.sub_category?.subCategoryName ?? "subcategoría"}
             </p>
           </div>

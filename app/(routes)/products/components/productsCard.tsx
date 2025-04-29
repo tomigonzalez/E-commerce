@@ -69,7 +69,7 @@ const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
           <p className="bg-black text-white px-2 py-1 rounded-full">
             {product.category?.categoryName ?? "Categoría"}
           </p>
-          <p className="bg-yellow-900 text-white px-2 py-1 rounded-full">
+          <p className="bg-defaultUser text-white px-2 py-1 rounded-full">
             {product.sub_category?.subCategoryName ?? "Subcategoría"}
           </p>
         </div>
