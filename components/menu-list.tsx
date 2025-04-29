@@ -16,12 +16,12 @@ import {
   navigationMenuTriggerStyle,
 } from "@/components/ui/navigation-menu";
 import { useRouter } from "next/navigation";
+import { useGetCategories } from "@/api/usePeticionApi";
 
 const MenuList = () => {
   const router = useRouter();
-
+  const { result: categories, loading, error } = useGetCategories();
   const handleClick = () => {
-    // Recargar la página al navegar a productos
     router.push("/products");
   };
   return (
@@ -48,14 +48,14 @@ const MenuList = () => {
           </Link>
           <NavigationMenuContent>
             <ul className="grid w-[400px] gap-3 p-4 md:w-[500px] md:grid-cols-2 lg:w-[600px] ">
-              {components.map((component) => (
+              {categories?.map((category, index) => (
                 <ListItem
-                  key={component.title}
-                  title={component.title}
-                  href={component.href}
+                  key={index}
+                  title={category.categoryName}
+                  href={`/products?category=${category.categoryName}`}
                   className="cursor-pointer"
                 >
-                  {component.description}
+                  {` ${category.categoryName}`}
                 </ListItem>
               ))}
             </ul>
@@ -108,26 +108,7 @@ const MenuList = () => {
   );
 };
 export default MenuList;
-const components: { title: string; href: string; description: string }[] = [
-  {
-    title: "Ropa",
-    href: "/products?category=Ropa",
-    description:
-      "A modal dialog that interrupts the user with important content and expects a response.",
-  },
-  {
-    title: "Accesorios",
-    href: "/products?category=Accesorios",
-    description:
-      "For sighted users to preview content available behind a link.",
-  },
-  {
-    title: "Hype",
-    href: "/products?category=Hype",
-    description:
-      "Displays an indicator showing the completion progress of a task, typically displayed as a progress bar.",
-  },
-];
+
 const ListItem = React.forwardRef<
   React.ElementRef<"a">,
   React.ComponentPropsWithoutRef<"a">

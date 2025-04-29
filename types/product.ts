@@ -66,6 +66,6 @@ export type ProductType = {
   publishedAt: string;
   category: CategoryType;
   sub_category?: SubCategoryType | null; // Subcategoría opcional
-  tipoProducto: null | string;
+
   size_stock:SizeStockType[];
 };
