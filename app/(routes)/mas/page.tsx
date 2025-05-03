@@ -1,6 +1,3 @@
-"use client";
-import Contacto from "./components/contacto";
-
 import GuiaDeTalles from "./components/guiaDeTalles";
 import SobreNosotros from "./components/sobreNosotros";
 
@@ -11,7 +8,7 @@ const Page = (props: Props) => {
     <>
       <SobreNosotros />
       <GuiaDeTalles />
-      <Contacto />
+      {/* <Contacto />  */}
     </>
   );
 };

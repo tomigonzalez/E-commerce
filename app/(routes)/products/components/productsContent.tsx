@@ -1,14 +1,11 @@
-// app/(routes)/products/ProductsContent.tsx
 "use client";
 
 import { useSearchParams } from "next/navigation";
 import { useEffect, useState, useMemo, useCallback } from "react";
 
 import SkeletonScheme from "@/components/skeletonScheme";
-
 import ProductFilters from "@/components/products-filters";
 import { useProductFilters } from "@/hooks/use-filters";
-
 import { CategoryType } from "@/types/product";
 import { useGetCategories, useGetProductAll } from "@/api/usePeticionApi";
 import ProductCard from "./productsCard";
@@ -25,24 +22,22 @@ const ProductsContent = () => {
   const { filters, setFilters, categories, filteredProducts } =
     useProductFilters(products || [], allCategories || []);
 
-  const filteredProductsMemo = useMemo(
-    () => filteredProducts,
-    [filteredProducts]
-  );
+  const filteredProductsMemo = useMemo(() => {
+    return filteredProducts.sort((a, b) => {
+      const aHasStock = a.size_stock.some((size) => size.stock > 0);
+      const bHasStock = b.size_stock.some((size) => size.stock > 0);
+      if (aHasStock === bHasStock) return 0;
+      return aHasStock ? -1 : 1;
+    });
+  }, [filteredProducts]);
+
   const categoriesMemo = useMemo(() => categories, [categories]);
 
-  const onFilterChange = useCallback(
-    (newFilters: any) => {
-      setFilters(newFilters);
-      setCurrentPage(1);
-    },
-    [setFilters]
-  );
-
+  // Actualizar filtros al cambiar de categoría en la URL
   useEffect(() => {
     if (
       initialCategory &&
-      (allCategories ?? []).some(
+      allCategories?.some(
         (cat: CategoryType) => cat.categoryName === initialCategory
       )
     ) {
@@ -50,6 +45,7 @@ const ProductsContent = () => {
     }
   }, [initialCategory, allCategories, setFilters]);
 
+  // Paginación
   const [currentPage, setCurrentPage] = useState(1);
   const itemsPerPage = 6;
   const totalPages = Math.ceil(filteredProductsMemo.length / itemsPerPage);
@@ -60,6 +56,14 @@ const ProductsContent = () => {
       currentPage * itemsPerPage
     );
   }, [filteredProductsMemo, currentPage]);
+
+  const onFilterChange = useCallback(
+    (newFilters: any) => {
+      setFilters(newFilters);
+      setCurrentPage(1); // Resetear la página al cambiar filtros
+    },
+    [setFilters]
+  );
 
   if (loading || loadingCategories) {
     return <SkeletonScheme grid={3} />;

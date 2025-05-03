@@ -1,5 +1,6 @@
 import { CategoryType, ProductType } from "@/types/product";
 import { useEffect, useState } from "react";
+
 export function useFetchData<T>(url: string) {
   const [result, setResult] = useState<T | null>(null);
   const [loading, setLoading] = useState(true);
@@ -31,7 +32,7 @@ export function useFetchData<T>(url: string) {
     fetchData();
 
     return () => {
-      controller.abort(); // Cancela la petición al desmontar el componente
+      controller.abort();
     };
   }, [url]);
 
@@ -53,9 +54,4 @@ export function useGetProductsByTipo(
 export function useGetCategories() {
   const url = `${process.env.NEXT_PUBLIC_BACKEND_URL}/api/categories?populate=*`;
   return useFetchData<CategoryType[]>(url); // Reutilizamos el hook genérico
-}
-
-export function useGetContactInfo() {
-  const url = `${process.env.NEXT_PUBLIC_BACKEND_URL}/api/contactos/?populate=*`;
-  return useFetchData(url); // Reutilizamos el hook genérico
 }

@@ -5,8 +5,6 @@ const GaleryHome = () => {
   const homeData = useHomeData((state) => state.data);
   const imagenHeroUrl = homeData?.[0]?.galeriaImg;
 
-  console.log(imagenHeroUrl);
-
   return (
     <div className="bg-white dark:bg-gray-800 py-2 mx-auto sm:py-14 sm:px-24">
       <div className="grid grid-cols-2 gap-4 sm:grid-cols-3 md:gap-6 xl:gap-8">
@@ -21,7 +19,7 @@ const GaleryHome = () => {
               src={
                 image?.url
                   ? `${process.env.NEXT_PUBLIC_BACKEND_URL}${image.url}`
-                  : "/subirImg.png"
+                  : "/subirImg.jpg"
               }
               alt="Image product"
               className="absolute inset-0 h-full w-full object-cover object-center transition duration-200 group-hover:scale-110"

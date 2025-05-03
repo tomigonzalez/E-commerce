@@ -23,7 +23,7 @@ const FeaturedProducts = () => {
   const router = useRouter();
 
   return (
-    <div className="max-w-6xl py-2 mx-auto sm:py-14 sm:px-24">
+    <div className="max-w-6xl py-14 px-6 mx-auto">
       <h3 className="px-6 text-3xl sm:pb-8">Producto destacado</h3>
       <Carousel>
         <CarouselContent className="ml-2 md:ml-4">
@@ -43,7 +43,7 @@ const FeaturedProducts = () => {
                           src={
                             product.images && product.images.length > 0
                               ? `${process.env.NEXT_PUBLIC_BACKEND_URL}${product.images[0].url}`
-                              : "/subirImg.png"
+                              : "/subirImg.jpg"
                           }
                           alt={product.productName}
                           className="object-contain max-h-60 w-full rounded-md"

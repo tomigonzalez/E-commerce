@@ -46,7 +46,7 @@ const CartItem = ({ product }: CartItemProps) => {
           src={
             product.images && product.images[0]?.url
               ? `${process.env.NEXT_PUBLIC_BACKEND_URL}${product.images[0].url}`
-              : "/subirImg.png"
+              : "/subirImg.jpg"
           }
           alt="Product"
           className="w-24 h-24 overflow-hidden rounded-md sm:w-auto sm:h-32 object-cover"

@@ -21,22 +21,22 @@ const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
   const [stockAvailable, setStockAvailable] = useState<number>(0);
   const [quantity, setQuantity] = useState<number>(1);
 
-  // Selecciona automáticamente el talle más chico con stock
+  // Elegir automáticamente el primer talle con stock
   useEffect(() => {
-    const firstAvailable = product.size_stock
-      .filter((s) => s.stock > 0)
-      .sort((a, b) => a.size.localeCompare(b.size))[0];
-
-    if (firstAvailable) {
-      setSelectedSize(firstAvailable.size);
-      setStockAvailable(firstAvailable.stock);
+    const firstWithStock = product.size_stock.find((s) => s.stock > 0);
+    if (firstWithStock) {
+      setSelectedSize(firstWithStock.size);
+      setStockAvailable(firstWithStock.stock);
     }
   }, [product.size_stock]);
 
-  const handleSizeClick = (size: string, stock: number) => {
-    setSelectedSize(size);
-    setStockAvailable(stock);
-    setQuantity(1);
+  const handleSizeClick = (size: string) => {
+    const selected = product.size_stock.find((s) => s.size === size);
+    if (selected) {
+      setSelectedSize(selected.size);
+      setStockAvailable(selected.stock);
+      setQuantity(1);
+    }
   };
 
   const handleAddToCart = () => {
@@ -57,7 +57,7 @@ const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
           src={
             product.images?.[0]
               ? `${process.env.NEXT_PUBLIC_BACKEND_URL}${product.images[0].url}`
-              : "/subirImg.png"
+              : "/subirImg.jpg"
           }
           alt={product.productName}
           className="w-full h-40 object-contain"
@@ -81,7 +81,7 @@ const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
           {product.size_stock.map(({ id, size, stock }) => (
             <button
               key={id}
-              onClick={() => handleSizeClick(size, stock)}
+              onClick={() => handleSizeClick(size)}
               disabled={stock === 0}
               className={`px-3 py-1 text-sm rounded-full border ${
                 stock === 0

@@ -22,7 +22,7 @@ const CartSummaryItem = ({ product }: CartSummaryItemProps) => {
           src={
             product.images && product.images[0]?.url
               ? `${process.env.NEXT_PUBLIC_BACKEND_URL}${product.images[0].url}`
-              : "/subirImg.png"
+              : "/subirImg.jpg"
           }
           alt={product.productName}
           className="w-20 h-20 rounded-md object-cover"

@@ -47,7 +47,7 @@ export type SubCategoryType = {
 };
 export type SizeStockType = {
   id: number; 
-  size: "XS" | "S" | "M" | "L" | "XL"| "XXL"| "XXXL";
+  size: "XS" | "S" | "M" | "UNICO" | "L" | "XL"| "XXL"| "XXXL";
   stock: number;
 };
 
