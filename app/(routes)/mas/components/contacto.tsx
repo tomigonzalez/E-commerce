@@ -1,122 +1,130 @@
-// "use client";
+"use client";
 
-// import { useGetContactInfo } from "@/api/usePeticionApi";
-// import SkeletonScheme from "@/components/skeletonScheme";
-// import { ResponseType } from "@/types/response";
-// import { Phone, Mail, MapPin } from "lucide-react";
-// import { FaInstagram, FaLinkedinIn, FaFacebookF } from "react-icons/fa"; // Font Awesome icons
+import { useInfoData } from "@/hooks/use-info-data";
+import { Phone, Mail, MapPin } from "lucide-react";
+import { FaInstagram, FaLinkedinIn, FaFacebookF } from "react-icons/fa";
 
-// const Contacto = () => {
-//   const { error, loading, result }: ResponseType = useGetContactInfo();
+const Contacto = () => {
+  const infoData = useInfoData((state) => state.data);
+  const contacto = infoData?.contacto;
 
-//   if (loading) return <SkeletonScheme grid={1} />;
-//   if (error) return <p>Error al cargar la información.</p>;
+  return (
+    <section className="px-6 sm:px-10 py-16 max-w-6xl mx-auto">
+      <h2 className="text-3xl sm:text-4xl font-bold text-center text-primary mb-12">
+        Contacto
+      </h2>
 
-//   const { telefono, email, direccion, whatsapp } = result?.[0] || {};
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-12">
+        {/* Información de contacto */}
+        <div className="flex flex-col gap-6 items-center md:items-start text-center md:text-left">
+          {contacto?.whatsapp && (
+            <ContactItem
+              icon={<Phone className="text-green-500" />}
+              label={contacto.whatsapp}
+              href={`https://wa.me/${contacto.whatsapp}`}
+              hoverColor="hover:text-green-600 dark:hover:text-green-400"
+            />
+          )}
+          {contacto?.telefono && (
+            <ContactItem
+              icon={<Phone className="text-blue-500" />}
+              label={contacto.telefono}
+              href={`tel:${contacto.telefono}`}
+              hoverColor="hover:text-blue-600 dark:hover:text-blue-400"
+            />
+          )}
+          {contacto?.email && (
+            <ContactItem
+              icon={<Mail className="text-red-500" />}
+              label={contacto.email}
+              href={`mailto:${contacto.email}`}
+              hoverColor="hover:text-red-600 dark:hover:text-red-400"
+            />
+          )}
+        </div>
 
-//   return (
-//     <div className="p-6 rounded-lg max-w-6xl mx-auto space-y-6 " id="con">
-//       <h2 className="text-2xl md:text-3xl font-semibold text-center text-gray-800 dark:text-white">
-//         Contacto
-//       </h2>
+        {/* Redes Sociales */}
+        <div className="flex flex-col gap-6 items-center md:items-start text-center md:text-left">
+          {contacto?.facebook && (
+            <SocialItem
+              icon={<FaFacebookF className="text-blue-600" size={24} />}
+              label="Facebook"
+              href={contacto.facebook}
+              hoverColor="hover:text-blue-800 dark:hover:text-blue-500"
+            />
+          )}
+          {contacto?.instagram && (
+            <SocialItem
+              icon={<FaInstagram className="text-pink-500" size={24} />}
+              label="Instagram"
+              href={contacto.instagram}
+              hoverColor="hover:text-pink-600 dark:hover:text-pink-400"
+            />
+          )}
+          {contacto?.direccion && (
+            <ContactItem
+              icon={<MapPin className="text-gray-500" />}
+              label={contacto.direccion}
+              href={contacto.google_maps_url || "#"}
+              hoverColor="hover:text-gray-800 dark:hover:text-gray-300"
+            />
+          )}
+          {contacto?.linkedin && (
+            <SocialItem
+              icon={<FaLinkedinIn className="text-blue-700" size={24} />}
+              label="LinkedIn"
+              href={contacto.linkedin}
+              hoverColor="hover:text-blue-800 dark:hover:text-blue-400"
+            />
+          )}
+        </div>
+      </div>
+    </section>
+  );
+};
 
-//       <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-//         {/* Información de contacto */}
-//         <div className="space-y-4 text-center md:text-left">
-//           {/* WhatsApp */}
-//           <div className="flex items-center gap-3 justify-center md:justify-start">
-//             <Phone className="text-green-500 dark:text-green-400" size={20} />
-//             <a
-//               href={`https://wa.me/${whatsapp}`}
-//               target="_blank"
-//               rel="noopener noreferrer"
-//               className="text-lg md:text-xl text-gray-700 dark:text-white hover:text-green-600 dark:hover:text-green-300"
-//             >
-//               {whatsapp}
-//             </a>
-//           </div>
+export default Contacto;
 
-//           {/* Teléfono */}
-//           <div className="flex items-center gap-3 justify-center md:justify-start">
-//             <Phone className="text-blue-500 dark:text-blue-400" size={20} />
-//             <a
-//               href={`tel:${telefono}`}
-//               className="text-lg md:text-xl text-gray-700 dark:text-white hover:text-blue-600 dark:hover:text-blue-300"
-//             >
-//               {telefono}
-//             </a>
-//           </div>
+const ContactItem = ({
+  icon,
+  label,
+  href,
+  hoverColor,
+}: {
+  icon: React.ReactNode;
+  label: string;
+  href?: string;
+  hoverColor: string;
+}) => (
+  <a
+    href={href}
+    target="_blank"
+    rel="noopener noreferrer"
+    className={`flex items-center gap-4 text-lg text-gray-800 dark:text-white transition-colors ${hoverColor}`}
+  >
+    {icon}
+    {label}
+  </a>
+);
 
-//           {/* Correo */}
-//           <div className="flex items-center gap-3 justify-center md:justify-start">
-//             <Mail className="text-red-500 dark:text-red-400" size={20} />
-//             <a
-//               href={`mailto:${email}`}
-//               className="text-lg md:text-xl text-gray-700 dark:text-white hover:text-red-600 dark:hover:text-red-300"
-//             >
-//               {email}
-//             </a>
-//           </div>
-
-//           {/* Dirección */}
-//           <div className="flex items-center gap-3 justify-center md:justify-start">
-//             <MapPin className="text-gray-500 dark:text-gray-400" size={20} />
-//             <p className="text-lg md:text-xl text-gray-700 dark:text-white">
-//               {direccion}
-//             </p>
-//           </div>
-//         </div>
-
-//         {/* Redes sociales (columna) */}
-//         <div className="space-y-6 text-center">
-//           <div className="flex items-center gap-3 justify-center">
-//             <FaFacebookF
-//               size={30}
-//               className="text-blue-600 dark:text-blue-400"
-//             />
-//             <a
-//               href="https://www.facebook.com"
-//               target="_blank"
-//               rel="noopener noreferrer"
-//               className="text-lg md:text-xl text-gray-700 dark:text-white hover:text-blue-800 dark:hover:text-blue-500"
-//             >
-//               Facebook
-//             </a>
-//           </div>
-
-//           <div className="flex items-center gap-3 justify-center">
-//             <FaInstagram
-//               size={30}
-//               className="text-pink-500 dark:text-pink-400"
-//             />
-//             <a
-//               href="https://www.instagram.com"
-//               target="_blank"
-//               rel="noopener noreferrer"
-//               className="text-lg md:text-xl text-gray-700 dark:text-white hover:text-pink-600 dark:hover:text-pink-300"
-//             >
-//               Instagram
-//             </a>
-//           </div>
-
-//           <div className="flex items-center gap-3 justify-center">
-//             <FaLinkedinIn
-//               size={30}
-//               className="text-blue-700 dark:text-blue-500"
-//             />
-//             <a
-//               href="https://www.linkedin.com"
-//               target="_blank"
-//               rel="noopener noreferrer"
-//               className="text-lg md:text-xl text-gray-700 dark:text-white hover:text-blue-800 dark:hover:text-blue-400"
-//             >
-//               LinkedIn
-//             </a>
-//           </div>
-//         </div>
-//       </div>
-//     </div>
-//   );
-// };
-
-// export default Contacto;
+const SocialItem = ({
+  icon,
+  label,
+  href,
+  hoverColor,
+}: {
+  icon: React.ReactNode;
+  label: string;
+  href: string;
+  hoverColor: string;
+}) => (
+  <a
+    href={href}
+    target="_blank"
+    rel="noopener noreferrer"
+    className={`flex items-center gap-4 text-lg text-gray-800 dark:text-white transition-colors ${hoverColor}`}
+  >
+    {icon}
+    {label}
+  </a>
+);

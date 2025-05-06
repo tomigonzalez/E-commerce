@@ -1,3 +1,5 @@
+import CambiosDevoluciones from "./components/cambiosDevoluciones";
+import Contacto from "./components/contacto";
 import PoliticaPrivacidad from "./components/politicaPrivacidad";
 import SobreNosotros from "./components/sobreNosotros";
 
@@ -8,7 +10,8 @@ const Page = (props: Props) => {
     <>
       <SobreNosotros />
       <PoliticaPrivacidad />
-      {/* <Contacto />  */}
+      <CambiosDevoluciones />
+      <Contacto />
     </>
   );
 };
