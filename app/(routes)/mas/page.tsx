@@ -1,4 +1,4 @@
-import GuiaDeTalles from "./components/guiaDeTalles";
+import PoliticaPrivacidad from "./components/politicaPrivacidad";
 import SobreNosotros from "./components/sobreNosotros";
 
 type Props = {};
@@ -7,7 +7,7 @@ const Page = (props: Props) => {
   return (
     <>
       <SobreNosotros />
-      <GuiaDeTalles />
+      <PoliticaPrivacidad />
       {/* <Contacto />  */}
     </>
   );
