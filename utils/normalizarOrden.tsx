@@ -43,6 +43,7 @@ export const normalizarOrden = (userData: any, items: any[]) => {
       price: item.price,
       quantity: item.quantity,
       product_id: item.id.toString(),
+      talle: item.sizeSelected,
     })),
   };
 };

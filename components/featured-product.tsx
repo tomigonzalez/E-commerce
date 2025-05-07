@@ -23,7 +23,7 @@ const FeaturedProducts = () => {
   const router = useRouter();
 
   return (
-    <div className="max-w-6xl py-14 px-6 mx-auto">
+    <div className="max-w-6xl w-[80%] py-14 px-6 mx-auto">
       <h3 className="px-6 text-3xl sm:pb-8">Producto destacado</h3>
       <Carousel>
         <CarouselContent className="ml-2 md:ml-4">
@@ -33,7 +33,7 @@ const FeaturedProducts = () => {
               return (
                 <CarouselItem
                   key={product.id}
-                  className="md:basis-1/2 lg:basis-1/3 group md:p-2 p-16"
+                  className="md:basis-1/2 lg:basis-1/3 group md:p-2 p-8"
                 >
                   <div className="p-1 w-full max-w-xs sm:max-w-sm md:max-w-md lg:max-w-lg xl:max-w-xl mx-auto">
                     <Card className="py-4 border border-gray-200 shadow-none">
@@ -83,7 +83,7 @@ const FeaturedProducts = () => {
             })}
         </CarouselContent>
         <CarouselPrevious className="cursor-pointer" />
-        <CarouselNext className="hidden sm:flex cursor-pointer" />
+        <CarouselNext className="sm:flex cursor-pointer" />
       </Carousel>
     </div>
   );

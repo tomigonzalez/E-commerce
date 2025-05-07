@@ -12,7 +12,7 @@ const NavBar = () => {
   const router = useRouter();
   const cart = useCart();
   const infoData = useInfoData((state) => state.data);
-  console.log(infoData?.politicaPrivacidad.nombreTienda);
+
   return (
     <div className="flex items-center justify-between p-4 mx-auto sm:max-w-4xl md:max-w-6xl">
       <h1 onClick={() => router.push("/")} className="font-bold">

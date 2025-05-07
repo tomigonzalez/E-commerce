@@ -62,7 +62,12 @@ const MenuList = () => {
           </NavigationMenuContent>
         </NavigationMenuItem>
         <NavigationMenuItem>
-          <NavigationMenuTrigger className="cursor-pointer">
+          <NavigationMenuTrigger
+            className="cursor-pointer"
+            onClick={() => {
+              window.location.href = "/mas";
+            }}
+          >
             Mas
           </NavigationMenuTrigger>
           <NavigationMenuContent>

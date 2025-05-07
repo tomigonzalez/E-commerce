@@ -3,7 +3,7 @@
 import { useUserDataStore } from "@/hooks/user-data";
 import { useCart } from "@/hooks/use-cart";
 import React from "react";
-import { useRouter } from "next/navigation";
+
 import { usePostOrden } from "@/api/usePostOrden";
 import { normalizarOrden } from "@/utils/normalizarOrden";
 import { Button } from "../ui/button";
@@ -39,10 +39,15 @@ const Confirm = ({
         ...ordenNormalizada,
         estado: "pendiente",
       };
-
+      console.log(ordenConEstadoPendiente);
       const ordenResponse = await postOrden(ordenConEstadoPendiente);
       console.log("✅ Orden creada:", ordenResponse);
-
+      if (ordenResponse?.data?.id) {
+        localStorage.setItem(
+          "ordenStrapiId",
+          ordenResponse.data.documentId.toString()
+        );
+      }
       const productosConEnvio = [
         ...items.map((item) => ({
           id: item.id,

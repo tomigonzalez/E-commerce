@@ -25,14 +25,14 @@ const api = {
             method: "POST",
             headers: {
               "Content-Type": "application/json",
-              Authorization: `Bearer ${process.env.MP_ACCESS_TOKEN}`, // ⚠️ Usá variables de entorno
+              Authorization: `Bearer APP_USR-563550573701914-033000-589367fb2bbc009fe8259ffbf8eb4f55-2356480963`, // ⚠️ Usá variables de entorno
             },
             body: JSON.stringify({
               items,
               back_urls: {
                 success: `https://kx1c20hc-3000.brs.devtunnels.ms/success`,
-                failure: `https://kx1c20hc-3000.brs.devtunnels.ms/payment`,
-                pending: `https://kx1c20hc-3000.brs.devtunnels.ms/payment`,
+                failure: `https://kx1c20hc-3000.brs.devtunnels.ms/success`,
+                pending: `https://kx1c20hc-3000.brs.devtunnels.ms/success`,
               },
               notification_url: `https://kx1c20hc-3000.brs.devtunnels.ms/webhook`,
               auto_return: "approved",

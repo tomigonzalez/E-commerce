@@ -11,7 +11,7 @@ export default function Page() {
   const { items } = useCart();
   const router = useRouter();
 
-  // Calculamos el precio total del carrito
+  console.log(items);
   const totalPrice = items.reduce((total, product) => {
     return total + product.price * product.quantity;
   }, 0);
@@ -37,7 +37,7 @@ export default function Page() {
         </div>
         <div className="max-w-xl">
           <div className="p-6 rounded-lg bg-slate-100">
-            <p className="mb-3 text-lg font-semibold">Order Summary</p>
+            <p className="mb-3 text-lg font-semibold">Resumen de Orden</p>
             <Separator />
             <div className="flex justify-between gap-5 my-4">
               <p>Order total</p>
