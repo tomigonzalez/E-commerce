@@ -7,15 +7,12 @@ import InfoProduct from "../components/info-product";
 export default async function Page({
   params,
 }: {
-  params: { productSlug: string };
+  params: Promise<{ productSlug: string }>;
 }) {
-  const { productSlug } = params;
+  const { productSlug } = await params;
 
   const res = await fetch(
-    `${process.env.NEXT_PUBLIC_BACKEND_URL}/api/products?filters[slug][$eq]=${productSlug}&populate=*`,
-    {
-      next: { revalidate: 60 }, // Optional: ISR / caché
-    }
+    `${process.env.NEXT_PUBLIC_BACKEND_URL}/api/products?filters[slug][$eq]=${productSlug}&populate=*`
   );
 
   if (!res.ok) return notFound();
