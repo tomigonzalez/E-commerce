@@ -10,7 +10,10 @@ import Link from "next/link";
 const ItemsMenuMobile = () => {
   return (
     <Popover>
-      <PopoverTrigger className="p-2 rounded-md hover:bg-gray-200 dark:hover:bg-gray-700 cursor-pointer">
+      <PopoverTrigger
+        className="p-2 rounded-md hover:bg-gray-200 dark:hover:bg-gray-700 cursor-pointer "
+        title="Abrir menú de navegación"
+      >
         <Menu size={24} />
       </PopoverTrigger>
       <PopoverContent className="flex flex-col gap-2 p-4 bg-white rounded-md shadow-md dark:bg-gray-900">
