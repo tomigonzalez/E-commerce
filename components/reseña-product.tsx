@@ -52,7 +52,7 @@ const ReviewsCarousel = () => {
         opts={{ align: "start", loop: true }}
         className="w-full"
       >
-        <CarouselContent className="-ml-2">
+        <CarouselContent className="ml-2">
           {reviews.map((review, index) => (
             <CarouselItem
               key={index}

@@ -93,13 +93,11 @@ const CartItem = ({ product }: CartItemProps) => {
         <div>
           <Button
             className={cn(
-              "cursor-pointer rounded-full flex items-center justify-center bg-white border shadow-md p-1 hover:scale-110 transition"
+              "cursor-pointer rounded-full flex items-center justify-center  border shadow-md  hover:scale-110 transition"
             )}
+            onClick={() => removeItem(product.id, product.sizeSelected)}
           >
-            <X
-              size={20}
-              onClick={() => removeItem(product.id, product.sizeSelected)}
-            />
+            <X size={20} />
           </Button>
         </div>
       </div>

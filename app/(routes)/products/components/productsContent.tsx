@@ -22,6 +22,8 @@ const ProductsContent = () => {
   const { filters, setFilters, categories, filteredProducts } =
     useProductFilters(products || [], allCategories || []);
 
+  const [isCategoryChanging, setIsCategoryChanging] = useState(false);
+
   const filteredProductsMemo = useMemo(() => {
     return filteredProducts.sort((a, b) => {
       const aHasStock = a.size_stock.some((size) => size.stock > 0);
@@ -41,7 +43,15 @@ const ProductsContent = () => {
         (cat: CategoryType) => cat.categoryName === initialCategory
       )
     ) {
+      setIsCategoryChanging(true); // Activa loading temporal
+
       setFilters((prev) => ({ ...prev, category: initialCategory }));
+
+      const timeout = setTimeout(() => {
+        setIsCategoryChanging(false);
+      }, 300); // Delay para mostrar skeleton
+
+      return () => clearTimeout(timeout);
     }
   }, [initialCategory, allCategories, setFilters]);
 
@@ -60,13 +70,17 @@ const ProductsContent = () => {
   const onFilterChange = useCallback(
     (newFilters: any) => {
       setFilters(newFilters);
-      setCurrentPage(1); // Resetear la página al cambiar filtros
+      setCurrentPage(1); // Resetear página al aplicar filtros
     },
     [setFilters]
   );
 
-  if (loading || loadingCategories) {
-    return <SkeletonScheme grid={3} />;
+  if (loading || loadingCategories || isCategoryChanging) {
+    return (
+      <div className="py-8 sm:py-16 sm:px-4 px-40 mx-auto max-w-screen-lg">
+        <SkeletonScheme grid={3} />
+      </div>
+    );
   }
 
   return (

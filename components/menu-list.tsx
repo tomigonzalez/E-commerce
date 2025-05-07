@@ -21,9 +21,7 @@ import { useGetCategories } from "@/api/usePeticionApi";
 const MenuList = () => {
   const router = useRouter();
   const { result: categories, loading, error } = useGetCategories();
-  const handleClick = () => {
-    router.push("/products");
-  };
+
   return (
     <NavigationMenu>
       <NavigationMenuList>
@@ -39,9 +37,7 @@ const MenuList = () => {
           <Link href="/products" legacyBehavior passHref>
             <NavigationMenuTrigger
               className="cursor-pointer"
-              onClick={() => {
-                window.location.href = "/products";
-              }}
+              onClick={() => router.push("/products")}
             >
               Productos
             </NavigationMenuTrigger>
@@ -64,9 +60,7 @@ const MenuList = () => {
         <NavigationMenuItem>
           <NavigationMenuTrigger
             className="cursor-pointer"
-            onClick={() => {
-              window.location.href = "/mas";
-            }}
+            onClick={() => router.push("/mas")}
           >
             Mas
           </NavigationMenuTrigger>
@@ -76,7 +70,7 @@ const MenuList = () => {
                 <NavigationMenuLink asChild>
                   <Link
                     className="flex h-full w-full select-none flex-col justify-end rounded-md bg-gradient-to-b from-muted/50 to-muted p-6 no-underline outline-none focus:shadow-md"
-                    href="/ "
+                    href="/"
                   >
                     <div className="mb-2 mt-4 text-lg font-medium cursor-pointer">
                       TMGC
