@@ -7,7 +7,10 @@ const SobreNosotros = () => {
 
   return (
     <div className="p-6 sm:p-10 max-w-5xl mx-auto " data-aos="fade-in">
-      <h2 className="text-3xl font-semibold text-primary text-center mb-8">
+      <h2
+        id="sobre-nosotros"
+        className="text-3xl font-semibold text-primary text-center mb-8"
+      >
         {infoData?.sobreNosotros.titulo}
       </h2>
 

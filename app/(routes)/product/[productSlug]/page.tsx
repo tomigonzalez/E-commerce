@@ -21,7 +21,7 @@ export default async function Page({
   const product: ProductType | null = data?.data?.[0] || null;
 
   if (!product) return notFound();
-
+  console.log(product.images);
   return (
     <div className="max-w-6xl py-4 mx-auto sm:py-32 sm:px-24">
       <div className="grid sm:grid-cols-2">

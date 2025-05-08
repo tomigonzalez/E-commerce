@@ -33,16 +33,22 @@ const ItemsMenuMobile = () => {
           href="/mas"
           className="block p-2 text-lg font-medium hover:text-blue-500"
         >
-          Más
+          Sobre Nosotros
         </Link>
         <Link
-          href="/mas#guia-de-talles"
+          href="/mas"
           className="block p-2 text-lg font-medium hover:text-blue-500"
         >
-          Guía de talles
+          Politica de Privacidad
         </Link>
         <Link
-          href="/mas#contacto"
+          href="/mas"
+          className="block p-2 text-lg font-medium hover:text-blue-500"
+        >
+          Cambios y devolucion
+        </Link>
+        <Link
+          href="/mas"
           className="block p-2 text-lg font-medium hover:text-blue-500"
         >
           Contacto

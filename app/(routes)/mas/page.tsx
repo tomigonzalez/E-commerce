@@ -11,7 +11,7 @@ const Page = (props: Props) => {
       <SobreNosotros />
       <PoliticaPrivacidad />
       <CambiosDevoluciones />
-      <Contacto data-aos="fade-up" data-aos-delay="600" />
+      <Contacto />
     </>
   );
 };

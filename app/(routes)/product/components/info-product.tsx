@@ -29,11 +29,14 @@ const InfoProduct = ({ product }: InfoProductProps) => {
       alert("Este talle no está disponible en stock.");
     }
   };
-
+  const imageUrl = product.images?.[0]?.url
+    ? `${process.env.NEXT_PUBLIC_BACKEND_URL}${product.images[0].url}`
+    : "/subirImg.jpg";
   return (
     <div className="px-6">
       <div className="justify-between mb-3 sm:flex">
         <h1 className="text-2xl">{product.productName}</h1>
+
         <div className="flex mt-2 items-center justify-between gap-3">
           <p className="px-2 py-1 text-xs text-white bg-black rounded-full dark:bg-white dark:text-black w-fit">
             {product.category.categoryName}
