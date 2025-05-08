@@ -14,7 +14,7 @@ interface CarouselPRoductProps {
 
 const CarouselProduct = (props: CarouselPRoductProps) => {
   return (
-    <div className="sm:px-16">
+    <div className="sm:px-14">
       <Carousel>
         <CarouselContent>
           {props.images.map((image) => (
@@ -23,7 +23,7 @@ const CarouselProduct = (props: CarouselPRoductProps) => {
                 loading="lazy"
                 src={`${process.env.NEXT_PUBLIC_BACKEND_URL}${image.url}`}
                 alt="Image product"
-                className="rounded-lg"
+                className="w-full h-full object-contain"
               />
             </CarouselItem>
           ))}
