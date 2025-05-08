@@ -1,5 +1,5 @@
 import React from "react";
-import { Truck, CreditCard, ShieldCheck } from "lucide-react"; // Asumiendo que usás Lucide
+import { Truck, CreditCard, ShieldCheck } from "lucide-react";
 
 type Props = {};
 
@@ -7,7 +7,12 @@ const InfoBanner = (props: Props) => {
   return (
     <div className="bg-gray-100 dark:bg-gray-900 py-8">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col sm:flex-row justify-center sm:justify-around items-center gap-6 sm:gap-0">
-        <div className="text-center">
+        <div
+          className="text-center"
+          data-aos="fade-in"
+          data-aos-duration="300" // Duración más corta
+          data-aos-delay="0" // Opcional: Retardo para que inicie después de 300ms
+        >
           <Truck className="w-8 h-8 text-gray-500 dark:text-gray-400 mx-auto mb-2" />
           <h3 className="text-sm font-semibold text-gray-700 dark:text-gray-200">
             ENVÍOS A TODO EL PAÍS
@@ -16,7 +21,13 @@ const InfoBanner = (props: Props) => {
             Estés donde estés, te llevamos tu pedido.
           </p>
         </div>
-        <div className="text-center">
+
+        <div
+          className="text-center"
+          data-aos="fade-in"
+          data-aos-duration="300" // Duración más corta
+          data-aos-delay="100" // Opcional: Retardo para que inicie después de 300ms
+        >
           <CreditCard className="w-8 h-8 text-gray-500 dark:text-gray-400 mx-auto mb-2" />
           <h3 className="text-sm font-semibold text-gray-700 dark:text-gray-200">
             PAGÁ COMO QUIERAS
@@ -26,7 +37,13 @@ const InfoBanner = (props: Props) => {
             efectivo.
           </p>
         </div>
-        <div className="text-center">
+
+        <div
+          className="text-center"
+          data-aos="fade-in"
+          data-aos-duration="300" // Duración más corta
+          data-aos-delay="200" // Opcional: Retardo para que inicie después de 300ms
+        >
           <ShieldCheck className="w-8 h-8 text-gray-500 dark:text-gray-400 mx-auto mb-2" />
           <h3 className="text-sm font-semibold text-gray-700 dark:text-gray-200">
             SEGURIDAD

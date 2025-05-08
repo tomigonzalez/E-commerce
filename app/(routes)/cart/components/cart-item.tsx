@@ -3,7 +3,6 @@
 import { Button } from "@/components/ui/button";
 import { useCart } from "@/hooks/use-cart";
 import { formatPrice } from "@/lib/formatPrice";
-import { cn } from "@/lib/utils";
 import { ProductType } from "@/types/product";
 import { X } from "lucide-react";
 import { useRouter } from "next/navigation";
@@ -17,7 +16,7 @@ const CartItem = ({ product }: CartItemProps) => {
   const router = useRouter();
   const { removeItem, addItem, removeOneItem } = useCart();
 
-  const handleDecreaseQuantity = () => {
+  const handleDecrease = () => {
     if (product.quantity > 1) {
       removeOneItem(product.id, product.sizeSelected);
     } else {
@@ -25,79 +24,76 @@ const CartItem = ({ product }: CartItemProps) => {
     }
   };
 
-  const handleIncreaseQuantity = () => {
-    addItem(product, product.sizeSelected); // ✅ Ahora sí
+  const handleIncrease = () => {
+    addItem(product, product.sizeSelected);
   };
 
-  // Buscar stock correspondiente al talle seleccionado
   const sizeInfo = product.size_stock.find(
     (s) => s.size === product.sizeSelected
   );
-  const sizeStock = sizeInfo?.stock ?? 0;
+  const stock = sizeInfo?.stock ?? 0;
+
+  const imageUrl = product.images?.[0]?.url
+    ? `${process.env.NEXT_PUBLIC_BACKEND_URL}${product.images[0].url}`
+    : "/subirImg.jpg";
 
   return (
-    <li className="flex p-6 border-b">
+    <li className="flex flex-col sm:flex-row sm:items-center items-center text-center gap-4 border-b py-6">
+      {/* Imagen */}
       <div
         onClick={() => router.push(`/product/${product.slug}`)}
-        className="cursor-pointer"
+        className="cursor-pointer shrink-0"
       >
         <img
+          src={imageUrl}
+          alt={product.productName}
           loading="lazy"
-          src={
-            product.images && product.images[0]?.url
-              ? `${process.env.NEXT_PUBLIC_BACKEND_URL}${product.images[0].url}`
-              : "/subirImg.jpg"
-          }
-          alt="Product"
-          className="w-24 h-24 overflow-hidden rounded-md sm:w-auto sm:h-32 object-cover"
+          className="w-24 h-24 sm:w-32 sm:h-32 object-cover rounded-lg border"
         />
       </div>
-      <div className="flex justify-between flex-1 px-6">
-        <div>
-          <h2 className="text-lg font-bold">{product.productName}</h2>
-          <p className="font-bold">{formatPrice(product.price)}</p>
 
-          <div className="flex items-center justify-between pt-2 pb-2 gap-3">
-            <p className="px-2 py-1 text-white bg-black rounded-full dark:bg-white dark:text-black w-fit">
-              {product.category?.categoryName ?? "categoría"}
+      {/* Info del producto */}
+      <div className="flex-1 w-full">
+        <div className="flex justify-between items-start w-full">
+          <div className="space-y-1 sm:text-left w-full">
+            <h3 className="text-lg font-semibold">{product.productName}</h3>
+            <p className="text-sm text-muted-foreground">
+              Talle: <strong>{product.sizeSelected}</strong> — Stock: {stock}
             </p>
-            <p className="px-2 py-1 text-white bg-defaultUser rounded-full w-fit">
-              {product.sub_category?.subCategoryName ?? "subcategoría"}
+            <p className="text-sm text-muted-foreground">
+              {product.category?.categoryName}
             </p>
+            <p className="font-bold">{formatPrice(product.price)}</p>
           </div>
 
-          <p className="text-sm text-gray-500">
-            Talle: <strong>{product.sizeSelected}</strong>
-          </p>
-          <p className="text-sm text-gray-500">
-            Stock disponible para ese talle: {sizeStock}
-          </p>
-
-          <div className="flex items-center mt-2">
-            <Button
-              onClick={handleDecreaseQuantity}
-              className="px-2 py-1 border rounded-l-md cursor-pointer"
-            >
-              -
-            </Button>
-            <span className="px-3 border-t border-b ">{product.quantity}</span>
-            <Button
-              onClick={handleIncreaseQuantity}
-              disabled={product.quantity >= sizeStock}
-              className="px-2 py-1 border rounded-r-md cursor-pointer"
-            >
-              +
-            </Button>
-          </div>
-        </div>
-        <div>
+          {/* Botón eliminar - solo visible en sm+ */}
           <Button
-            className={cn(
-              "cursor-pointer rounded-full flex items-center justify-center  border shadow-md  hover:scale-110 transition"
-            )}
+            variant="ghost"
+            className="hover:text-red-500 hidden sm:inline-flex"
             onClick={() => removeItem(product.id, product.sizeSelected)}
+            aria-label="Eliminar producto"
           >
-            <X size={20} />
+            <X size={18} />
+          </Button>
+        </div>
+
+        {/* Controles de cantidad */}
+        <div className="mt-4 flex items-center justify-center sm:justify-start gap-2">
+          <Button
+            onClick={handleDecrease}
+            className="h-8 w-8"
+            aria-label="Disminuir cantidad"
+          >
+            -
+          </Button>
+          <span className="px-3">{product.quantity}</span>
+          <Button
+            onClick={handleIncrease}
+            disabled={product.quantity >= stock}
+            className="h-8 w-8"
+            aria-label="Aumentar cantidad"
+          >
+            +
           </Button>
         </div>
       </div>

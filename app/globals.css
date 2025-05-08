@@ -2,6 +2,10 @@
 
 @plugin "tailwindcss-animate";
 
+@plugin "@tailwindcss/typography";
+
+@import 'aos/dist/aos.css';
+
 @custom-variant dark (&:is(.dark *));
 
 @theme {

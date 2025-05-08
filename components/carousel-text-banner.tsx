@@ -20,7 +20,10 @@ const CarouselTextBanner = () => {
     .filter((line) => line.trim() !== "");
 
   return (
-    <div className="bg-gray-200 dark:bg-primary">
+    <div
+      data-aos="fade-down"
+      className="bg-gray-200/80 dark:bg-primary absolute w-full animate-delay-400"
+    >
       <Carousel
         className="w-full max-w-4xl mx-auto"
         plugins={[Autoplay({ delay: 2000 })]}

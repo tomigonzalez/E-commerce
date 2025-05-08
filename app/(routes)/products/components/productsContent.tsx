@@ -75,6 +75,11 @@ const ProductsContent = () => {
     [setFilters]
   );
 
+  // Desplazar la página hacia arriba cada vez que cambie el número de página
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, [currentPage]);
+
   if (loading || loadingCategories || isCategoryChanging) {
     return (
       <div className="py-8 sm:py-16 sm:px-4 px-40 mx-auto max-w-screen-lg">
@@ -94,13 +99,23 @@ const ProductsContent = () => {
       />
 
       {filteredProductsMemo.length === 0 ? (
-        <p className="text-center text-gray-500 m-10">
-          No hay productos en esta categoría
-        </p>
+        <div className="prose dark:prose-invert mx-auto text-center mt-10">
+          <p>
+            No hay productos disponibles en esta categoría. Te invitamos a
+            explorar otras secciones de nuestra tienda.
+          </p>
+        </div>
       ) : (
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 pt-8">
-          {paginatedProducts.map((product) => (
-            <ProductCard key={product.id} product={product} />
+          {paginatedProducts.map((product, index) => (
+            <div
+              key={product.id}
+              data-aos="fade-up"
+              data-aos-delay={`${index * 100}`} // Añadir un retraso progresivo para crear un efecto en cascada
+              data-aos-duration="200"
+            >
+              <ProductCard product={product} />
+            </div>
           ))}
         </div>
       )}

@@ -11,7 +11,6 @@ export default function Page() {
   const { items } = useCart();
   const router = useRouter();
 
-  console.log(items);
   const totalPrice = items.reduce((total, product) => {
     return total + product.price * product.quantity;
   }, 0);

@@ -14,7 +14,7 @@ const NavBar = () => {
   const infoData = useInfoData((state) => state.data);
 
   return (
-    <div className="sticky top-0 z-50 border-b bg-background/80 backdrop-blur">
+    <div className="sticky  top-0 z-50 border-b bg-background/80 backdrop-blur">
       <div className="flex items-center justify-between p-4 mx-auto sm:max-w-4xl md:max-w-6xl">
         <h1
           onClick={() => router.push("/")}

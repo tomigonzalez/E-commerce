@@ -16,10 +16,10 @@ import IconButton from "./icon-button";
 import { useRouter } from "next/navigation";
 
 import { useGetProductAll } from "@/api/usePeticionApi";
+import AOS from "aos"; // Importa AOS
 
 const FeaturedProducts = () => {
-  const { error, loading, result }: ResponseType = useGetProductAll();
-
+  const { loading, result }: ResponseType = useGetProductAll();
   const router = useRouter();
 
   return (
@@ -35,7 +35,12 @@ const FeaturedProducts = () => {
                   key={product.id}
                   className="md:basis-1/2 lg:basis-1/3 group md:p-2 p-8"
                 >
-                  <div className="p-1 w-full max-w-xs sm:max-w-sm md:max-w-md lg:max-w-lg xl:max-w-xl mx-auto">
+                  <div
+                    className="p-1 w-full max-w-xs sm:max-w-sm md:max-w-md lg:max-w-lg xl:max-w-xl mx-auto"
+                    data-aos="fade-in" // Efecto fade-up
+                    data-aos-duration="700" // Duración de la animación
+                    data-aos-delay="300" // Retardo para la animación
+                  >
                     <Card className="py-4 border border-gray-200 shadow-none">
                       <CardContent className="relative flex items-center justify-center px-6 py-2">
                         <img

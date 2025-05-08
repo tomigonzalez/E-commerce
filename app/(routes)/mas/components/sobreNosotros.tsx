@@ -6,16 +6,13 @@ const SobreNosotros = () => {
   const infoData = useInfoData((state) => state.data);
 
   return (
-    <div className=" p-6 sm:p-20 text-center space-y-8 text-gray-700">
-      <h2 className="text-2xl font-semibold text-primary">
+    <div className="p-6 sm:p-10 max-w-5xl mx-auto " data-aos="fade-in">
+      <h2 className="text-3xl font-semibold text-primary text-center mb-8">
         {infoData?.sobreNosotros.titulo}
       </h2>
 
-      <div className="max-w-6xl mx-auto sm:flex justify-center items-center space-y-8 sm:space-y-0">
-        {/* Columna de texto */}
-        <div className="sm:w-auto space-y-6">
-          <p className=" dark:text-white">{infoData?.sobreNosotros.textDesc}</p>
-        </div>
+      <div className="prose dark:prose-invert max-w-none mx-auto">
+        <p>{infoData?.sobreNosotros.textDesc}</p>
       </div>
     </div>
   );

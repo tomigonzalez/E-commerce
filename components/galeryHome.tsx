@@ -1,3 +1,5 @@
+"use client";
+
 import { useHomeData } from "@/hooks/use-homeData";
 import React from "react";
 
@@ -12,7 +14,11 @@ const GaleryHome = () => {
           <a
             key={image.id}
             href="#"
-            className={`group relative flex h-48 items-end overflow-hidden rounded-lg bg-gray-100 shadow-lg ${index === 1 || index === 2 ? "md:col-span-2" : ""} md:h-80`}
+            className={`group relative flex h-48 items-end overflow-hidden rounded-lg bg-gray-100 shadow-lg ${
+              index === 1 || index === 2 ? "md:col-span-2" : ""
+            } md:h-80`}
+            data-aos="fade-up" // Añadimos un efecto fade-up
+            data-aos-delay={`${index * 150}`} // Añadimos retraso en cascada
           >
             <img
               loading="lazy"

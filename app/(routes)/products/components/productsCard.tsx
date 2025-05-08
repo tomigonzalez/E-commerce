@@ -76,7 +76,6 @@ const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
 
         <p className="text-xl mt-4">{formatPrice(product.price)}</p>
 
-        {/* Talles */}
         <div className="flex flex-wrap gap-2 mt-3">
           {product.size_stock.map(({ id, size, stock }) => (
             <button
@@ -96,7 +95,6 @@ const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
           ))}
         </div>
 
-        {/* Cantidad */}
         {stockAvailable > 0 && (
           <div className="mt-3 text-sm text-center">
             <label className="mr-2">Cantidad:</label>
@@ -116,7 +114,6 @@ const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
           </div>
         )}
 
-        {/* Botones */}
         <div className="flex gap-4 mt-5">
           <IconButton
             onClick={() => router.push(`product/${product.slug}`)}

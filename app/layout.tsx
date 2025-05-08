@@ -10,6 +10,7 @@ import HydrateZustand from "@/components/hydrate-zustand";
 import { getHomePageData } from "@/api/getHomePageDate";
 import { useGetInfo } from "@/api/getInfo";
 import { InfoDataType } from "@/types/info";
+import AOSInit from "@/components/aosInit";
 
 const urbanist = Urbanist({
   subsets: ["latin"],
@@ -31,6 +32,7 @@ export default async function RootLayout({
   return (
     <html lang="en" suppressHydrationWarning>
       <body className={`${urbanist.className} antialiased`}>
+        <AOSInit />
         <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
           <NextTopLoader color="#2299DD" height={3} />
           <HydrateZustand homeData={homeData} infoData={infoData}>
