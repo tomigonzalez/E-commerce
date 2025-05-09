@@ -1,11 +1,12 @@
+import { updateOrderStatus } from "@/api/usePutOrden";
 import { NextResponse } from "next/server";
 
 export async function POST(req: Request) {
+  console.log("🚨 Webhook ha llegado");  // Agrega este log para confirmar que el webhook llega
+  
   try {
     const body = await req.json();
-    console.log("🔔 Webhook recibido:", body);
-
-    // Extraer el ID del pago
+    
     const paymentId = body.data?.id;
     if (!paymentId) {
       return NextResponse.json(
@@ -14,27 +15,45 @@ export async function POST(req: Request) {
       );
     }
 
-    // Consultar el pago en MercadoPago para obtener detalles
     const paymentResponse = await fetch(
-      `https://api.mercadopago.com/v1/payments/${paymentId}`,
+      `https://api.mercadopago.com/v1/payments/${paymentId}?fields=metadata,status`,
       {
         method: "GET",
         headers: {
-          Authorization: `Bearer ${process.env.MP_ACCESS_TOKEN}`, // Usa variables de entorno
+          Authorization: `Bearer ${process.env.NEXT_PUBLIC_MP_ACCESS_TOKEN}`,
         },
       }
     );
 
     const paymentData = await paymentResponse.json();
-    console.log("💰 Detalles del pago:", paymentData);
+    
 
-    // Guardar el estado del pago en la base de datos (simulado)
-    if (paymentData.status === "approved") {
-      console.log("✅ Pago aprobado, actualizando pedido...");
-      // Aquí actualizarías tu base de datos con el pago aprobado
-    } else {
-      console.log(`⚠️ Pago en estado: ${paymentData.status}`);
+    const ordenStrapiId = paymentData.metadata?.orden_strapi_id;
+    const status = paymentData.status;
+
+    // Validamos si no se encontró ordenStrapiId
+    if (!ordenStrapiId) {
+      console.warn("⚠️ No se encontró ordenStrapiId en metadata");
+      return NextResponse.json({ message: "Sin orden asociada" }, { status: 200 });
     }
+    
+    
+    let nuevoEstado = "pendiente";
+    if (status === "approved") {
+      nuevoEstado = "confirmado";
+      console.log("✅ El pago fue aprobado, cambiando estado a 'confirmado'");
+    } else if (status === "rejected") {
+      nuevoEstado = "cancelado";
+      console.log("❌ El pago fue rechazado, cambiando estado a 'cancelado'");
+    } else if (status === "in_process") {
+      nuevoEstado = "pendiente";
+      console.log("🔄 El pago está en proceso, manteniendo estado 'pendiente'");
+    } else {
+      console.warn(`⚠️ Estado de pago no manejado: ${status}`);
+    }
+
+   
+    await updateOrderStatus(ordenStrapiId, nuevoEstado);
 
     return NextResponse.json({ message: "Webhook procesado" }, { status: 200 });
   } catch (error) {

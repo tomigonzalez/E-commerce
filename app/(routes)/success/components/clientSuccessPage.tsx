@@ -5,7 +5,6 @@ import { useCart } from "@/hooks/use-cart";
 import { useEffect } from "react";
 import { CheckCircle, XCircle, Clock } from "lucide-react";
 import { useSearchParams } from "next/navigation";
-import { updateOrderStatus } from "@/api/usePutOrden";
 
 export default function ClientSuccessPage() {
   const { items, clearCart } = useCart();
@@ -15,23 +14,13 @@ export default function ClientSuccessPage() {
   useEffect(() => {
     if (typeof window === "undefined") return;
 
-    const ordenId = localStorage.getItem("ordenStrapiId");
-
     if (paymentStatus === "approved" && items.length > 0) {
-      updateProductStock(items);
+      // updateProductStock(items);
       clearCart();
       localStorage.removeItem("cart-storage");
-
-      if (ordenId) updateOrderStatus(ordenId, "confirmado");
     }
 
-    if (paymentStatus === "rejected") {
-      if (ordenId) updateOrderStatus(ordenId, "cancelado");
-    }
-
-    if (paymentStatus === "in_process") {
-      if (ordenId) updateOrderStatus(ordenId, "pendiente");
-    }
+    // Ya no se necesita updateOrderStatus aquí, eso lo maneja el webhook
   }, [items, paymentStatus]);
 
   const renderMessage = () => {

@@ -55,7 +55,10 @@ const Confirm = ({
         },
       ];
 
-      const url = await api.product.submit(productosConEnvio);
+      const url = await api.product.submit(
+        productosConEnvio,
+        ordenResponse.data.documentId
+      );
 
       if (!url) {
         alert("Hubo un problema con el pago. Inténtalo más tarde.");
