@@ -1,13 +1,12 @@
-"use client";
-
-import { useUserDataStore } from "@/hooks/user-data";
-import { useCart } from "@/hooks/use-cart";
-import React from "react";
-
+import React, { useState } from "react";
+import { Button } from "../ui/button";
+import { validarStock } from "@/api/validateStock";
 import { usePostOrden } from "@/api/usePostOrden";
 import { normalizarOrden } from "@/utils/normalizarOrden";
-import { Button } from "../ui/button";
 import api from "@/api/mpCheckout";
+import { useUserDataStore } from "@/hooks/user-data";
+import { useCart } from "@/hooks/use-cart";
+import { toast } from "sonner";
 
 const Confirm = ({
   handleBack,
@@ -16,38 +15,31 @@ const Confirm = ({
   handleBack: () => void;
 }) => {
   const userData = useUserDataStore();
-  const { items } = useCart();
-  const { postOrden, loading, error } = usePostOrden();
+  const { items, clearCart } = useCart();
+  const { postOrden, loading } = usePostOrden();
 
   const ordenNormalizada = normalizarOrden(userData, items);
-  const {
-    nombre,
-    apellido,
-    email,
-    telefono,
-    dni,
-    direccion,
-    localidad,
-    codigoPostal,
-    envio,
-    total,
-  } = ordenNormalizada;
 
   const handleConfirmarOrden = async () => {
     try {
+      // Validar stock antes de continuar con la orden
+      await validarStock(items);
+
+      // Continuar con la creación de la orden si el stock es válido
       const ordenConEstadoPendiente = {
         ...ordenNormalizada,
         estado: "pendiente",
       };
-      console.log(ordenConEstadoPendiente);
+
       const ordenResponse = await postOrden(ordenConEstadoPendiente);
-      console.log("✅ Orden creada:", ordenResponse);
+
       if (ordenResponse?.data?.id) {
         localStorage.setItem(
           "ordenStrapiId",
           ordenResponse.data.documentId.toString()
         );
       }
+
       const productosConEnvio = [
         ...items.map((item) => ({
           id: item.id,
@@ -58,7 +50,7 @@ const Confirm = ({
         {
           id: 9999,
           productName: "Costo de Envío",
-          price: envio?.precio || 0,
+          price: ordenNormalizada.envio?.precio || 0,
           quantity: 1,
         },
       ];
@@ -72,8 +64,26 @@ const Confirm = ({
 
       window.location.href = url;
     } catch (error) {
-      console.error("Error en el checkout:", error);
-      alert("No se pudo procesar el pago. Inténtalo nuevamente.");
+      if (error instanceof Error) {
+        toast.error(error.message, {
+          style: {
+            backgroundColor: "#F56565", // rojo
+            color: "#fff",
+          },
+        });
+        localStorage.removeItem("cart-storage");
+        clearCart();
+      } else {
+        toast.error(
+          "Hubo un problema al procesar tu pedido. Inténtalo nuevamente.",
+          {
+            style: {
+              backgroundColor: "#F56565",
+              color: "#fff",
+            },
+          }
+        );
+      }
     }
   };
 
@@ -84,37 +94,33 @@ const Confirm = ({
       <div>
         <h3 className="font-medium text-gray-700 mb-1">Datos del Cliente</h3>
         <p>
-          {nombre} {apellido}
+          {ordenNormalizada.nombre} {ordenNormalizada.apellido}
         </p>
-        <p>Email: {email}</p>
-        <p>Teléfono: {telefono}</p>
-        <p>DNI: {dni}</p>
+        <p>Email: {ordenNormalizada.email}</p>
+        <p>Teléfono: {ordenNormalizada.telefono}</p>
+        <p>DNI: {ordenNormalizada.dni}</p>
       </div>
 
       <div>
         <h3 className="font-medium text-gray-700 mb-1">Dirección de Envío</h3>
-        <p>{direccion}</p>
+        <p>{ordenNormalizada.direccion}</p>
         <p>
-          {localidad} (CP: {codigoPostal})
+          {ordenNormalizada.localidad} (CP: {ordenNormalizada.codigoPostal})
         </p>
       </div>
 
       <div>
         <h3 className="font-medium text-gray-700 mb-1">Método de Envío</h3>
-        <p>Servicio: {envio?.servicio}</p>
-        <p>Transportista: {envio?.transportista}</p>
-        <p>Costo: ${envio?.precio?.toLocaleString()}</p>
+        <p>Servicio: {ordenNormalizada.envio?.servicio}</p>
+        <p>Transportista: {ordenNormalizada.envio?.transportista}</p>
+        <p>Costo: ${ordenNormalizada.envio?.precio?.toLocaleString()}</p>
       </div>
 
       <div className="border-t pt-4">
         <p className="text-lg font-semibold">
-          Total a pagar: ${total.toLocaleString()}
+          Total a pagar: ${ordenNormalizada.total.toLocaleString()}
         </p>
       </div>
-
-      {error && (
-        <div className="mt-2 text-red-600 bg-red-100 p-2 rounded">{error}</div>
-      )}
 
       <div className="flex gap-2">
         <Button

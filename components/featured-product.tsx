@@ -16,7 +16,6 @@ import IconButton from "./icon-button";
 import { useRouter } from "next/navigation";
 
 import { useGetProductAll } from "@/api/usePeticionApi";
-import AOS from "aos"; // Importa AOS
 
 const FeaturedProducts = () => {
   const { loading, result }: ResponseType = useGetProductAll();
