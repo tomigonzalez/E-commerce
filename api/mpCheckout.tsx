@@ -30,11 +30,11 @@ const api = {
             body: JSON.stringify({
               items,
               back_urls: {
-                success: `https://kx1c20hc-3000.brs.devtunnels.ms/success`,
-                failure: `https://kx1c20hc-3000.brs.devtunnels.ms/success`,
-                pending: `https://kx1c20hc-3000.brs.devtunnels.ms/success`,
+                success: `${process.env.NEXT_PUBLIC_WEB_MP}/success`,
+                failure: `${process.env.NEXT_PUBLIC_WEB_MP}/success`,
+                pending: `${process.env.NEXT_PUBLIC_WEB_MP}/success`,
               },
-              notification_url: `https://kx1c20hc-3000.brs.devtunnels.ms/webhook`,
+              notification_url: `${process.env.NEXT_PUBLIC_WEB_MP}/webhook`,
               auto_return: "approved",
               metadata: {
                 ordenStrapiId,

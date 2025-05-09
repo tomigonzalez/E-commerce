@@ -15,7 +15,7 @@ export default function ClientSuccessPage() {
     if (typeof window === "undefined") return;
 
     if (paymentStatus === "approved" && items.length > 0) {
-      // updateProductStock(items);
+      updateProductStock(items);
       clearCart();
       localStorage.removeItem("cart-storage");
     }
