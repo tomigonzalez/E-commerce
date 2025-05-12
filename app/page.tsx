@@ -40,7 +40,7 @@ export default function Home() {
           <div className="relative w-full h-full">
             <img
               src={
-                imagenHeroUrl
+                imagenHeroUrl && imagenHeroUrl.trim() !== ""
                   ? `${process.env.NEXT_PUBLIC_BACKEND_URL}${imagenHeroUrl}`
                   : "/BannerSubir.jpg"
               }
