@@ -11,16 +11,19 @@ import AOS from "aos";
 
 export default function Home() {
   const homeData = useHomeData((state) => state.data);
-  const imagenHeroUrl = homeData?.[0]?.imagenHero?.[0]?.url;
+  const rawHeroUrl = homeData?.[0]?.imagenHero?.[0]?.url;
+  const imagenHeroUrl =
+    rawHeroUrl && rawHeroUrl.trim() !== ""
+      ? `${process.env.NEXT_PUBLIC_BACKEND_URL}${rawHeroUrl}`
+      : "/BannerSubir.jpg";
 
   const [isImageLoaded, setIsImageLoaded] = useState(false);
 
   useEffect(() => {
-    if (imagenHeroUrl) {
-      const img = new Image();
-      img.src = `${process.env.NEXT_PUBLIC_BACKEND_URL}${imagenHeroUrl}`;
-      img.onload = () => setIsImageLoaded(true);
-    }
+    const img = new Image();
+    img.src = imagenHeroUrl;
+    img.onload = () => setIsImageLoaded(true);
+    img.onerror = () => setIsImageLoaded(true); // también avanzar si falla
   }, [imagenHeroUrl]);
 
   useEffect(() => {
@@ -39,11 +42,11 @@ export default function Home() {
         ) : (
           <div className="relative w-full h-full">
             <img
-              src={
-                imagenHeroUrl && imagenHeroUrl.trim() !== ""
-                  ? `${process.env.NEXT_PUBLIC_BACKEND_URL}${imagenHeroUrl}`
-                  : "/BannerSubir.jpg"
-              }
+              src={imagenHeroUrl}
+              onError={(e) => {
+                e.currentTarget.onerror = null;
+                e.currentTarget.src = "/BannerSubir.jpg";
+              }}
               alt="Hero"
               className="w-full h-full object-cover"
             />
