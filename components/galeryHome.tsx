@@ -14,7 +14,7 @@ const GaleryHome = () => {
           const src =
             image?.url && image.url.trim() !== ""
               ? `${process.env.NEXT_PUBLIC_BACKEND_URL}${image.url}`
-              : "/galeriaChico.jpg";
+              : "/BannerSubir.jpg";
 
           return (
             <a
@@ -31,7 +31,7 @@ const GaleryHome = () => {
                 src={src}
                 onError={(e) => {
                   e.currentTarget.onerror = null;
-                  e.currentTarget.src = "/galeriaChico.jpg";
+                  e.currentTarget.src = "/BannerSubir.jpg";
                 }}
                 alt="Image product"
                 className="absolute inset-0 h-full w-full object-cover object-center transition duration-200 group-hover:scale-110"
