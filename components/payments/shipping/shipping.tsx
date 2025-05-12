@@ -37,7 +37,7 @@ const Shipping = ({
       email,
       phone: telefono,
       street: direccion,
-      number: "2",
+      number: "",
       district: " ",
       city: localidad,
       state: "BA",

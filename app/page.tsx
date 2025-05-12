@@ -39,7 +39,11 @@ export default function Home() {
         ) : (
           <div className="relative w-full h-full">
             <img
-              src={`${process.env.NEXT_PUBLIC_BACKEND_URL}${imagenHeroUrl}`}
+              src={
+                imagenHeroUrl
+                  ? `${process.env.NEXT_PUBLIC_BACKEND_URL}${imagenHeroUrl}`
+                  : "/BannerSubir.jpg"
+              }
               alt="Hero"
               className="w-full h-full object-cover"
             />
