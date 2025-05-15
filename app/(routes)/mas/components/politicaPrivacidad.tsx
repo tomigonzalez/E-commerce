@@ -1,6 +1,6 @@
 "use client";
 
-import { useInfoData } from "@/hooks/use-info-data";
+import { useInfoData } from "@/store/use-info-data";
 import React from "react";
 
 const PoliticaPrivacidad = () => {

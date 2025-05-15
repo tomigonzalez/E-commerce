@@ -1,7 +1,7 @@
 "use client";
 
 import { Separator } from "@/components/ui/separator";
-import { useCart } from "@/hooks/use-cart";
+import { useCart } from "@/store/use-cart";
 import { formatPrice } from "@/lib/formatPrice";
 import CartItem from "./components/cart-item";
 import { Button } from "@/components/ui/button";

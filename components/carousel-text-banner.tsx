@@ -3,7 +3,7 @@ import { useRouter } from "next/navigation";
 import { Carousel, CarouselContent, CarouselItem } from "./ui/carousel";
 import { Card, CardContent } from "./ui/card";
 import Autoplay from "embla-carousel-autoplay";
-import { useHomeData } from "@/hooks/use-homeData";
+import { useHomeData } from "@/store/use-homeData";
 // Asegúrate de la ruta correcta
 
 const CarouselTextBanner = () => {

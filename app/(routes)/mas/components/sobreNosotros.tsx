@@ -1,6 +1,6 @@
 "use client";
 
-import { useInfoData } from "@/hooks/use-info-data";
+import { useInfoData } from "@/store/use-info-data";
 
 const SobreNosotros = () => {
   const infoData = useInfoData((state) => state.data);

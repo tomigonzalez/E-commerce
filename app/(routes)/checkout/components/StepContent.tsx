@@ -1,7 +1,7 @@
 import Confirm from "@/components/payments/confirm";
 import { FormsDatos } from "@/components/payments/formsDatos";
 import Shipping from "@/components/payments/shipping/shipping";
-import { useUserDataStore } from "@/hooks/user-data";
+import { useUserDataStore } from "@/store/user-data";
 
 // components/payments/StepContent.tsx
 const StepContent = ({

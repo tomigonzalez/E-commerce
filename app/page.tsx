@@ -5,7 +5,7 @@ import BannerProduct from "@/components/reseña-product";
 import CarouselTextBanner from "@/components/carousel-text-banner";
 import FeaturedProducts from "@/components/featured-product";
 import GaleryHome from "@/components/galeryHome";
-import { useHomeData } from "@/hooks/use-homeData";
+import { useHomeData } from "@/store/use-homeData";
 import SkeletonScheme from "@/components/skeletonScheme";
 import AOS from "aos";
 

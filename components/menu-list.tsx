@@ -1,10 +1,7 @@
 "use client";
-"use client";
-
 import * as React from "react";
 import Link from "next/link";
-
-import { cn } from "@/lib/utils";
+import { useRouter } from "next/navigation";
 
 import {
   NavigationMenu,
@@ -15,12 +12,18 @@ import {
   NavigationMenuTrigger,
   navigationMenuTriggerStyle,
 } from "@/components/ui/navigation-menu";
-import { useRouter } from "next/navigation";
-import { useGetCategories } from "@/api/usePeticionApi";
+import { cn } from "@/lib/utils";
+import { useCategoryStore } from "@/store/use-category";
 
 const MenuList = () => {
   const router = useRouter();
-  const { result: categories, loading, error } = useGetCategories();
+  const { categories, loading, error, fetchCategories } = useCategoryStore();
+
+  React.useEffect(() => {
+    if (!categories) {
+      fetchCategories(); // Solo hacemos fetch si las categorías no están cargadas
+    }
+  }, [categories, fetchCategories]);
 
   return (
     <NavigationMenu>
@@ -43,7 +46,7 @@ const MenuList = () => {
             </NavigationMenuTrigger>
           </Link>
           <NavigationMenuContent>
-            <ul className="grid w-[400px] gap-3 p-4 md:w-[500px] md:grid-cols-2 lg:w-[600px] ">
+            <ul className="grid w-[400px] gap-3 p-4 md:w-[500px] md:grid-cols-2 lg:w-[600px]">
               {categories?.map((category, index) => (
                 <ListItem
                   key={index}
@@ -51,12 +54,13 @@ const MenuList = () => {
                   href={`/products?category=${category.categoryName}`}
                   className="cursor-pointer"
                 >
-                  {` ${category.categoryName}`}
+                  {category.categoryName}
                 </ListItem>
               ))}
             </ul>
           </NavigationMenuContent>
         </NavigationMenuItem>
+
         <NavigationMenuItem>
           <NavigationMenuTrigger
             className="cursor-pointer"
@@ -106,6 +110,7 @@ const MenuList = () => {
     </NavigationMenu>
   );
 };
+
 export default MenuList;
 
 const ListItem = React.forwardRef<

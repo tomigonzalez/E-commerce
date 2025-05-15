@@ -3,8 +3,8 @@
 import React, { useState } from "react";
 import { Progress } from "@/components/ui/progress";
 import { Button } from "@/components/ui/button";
-import { useCart } from "@/hooks/use-cart";
-import { useUserDataStore } from "@/hooks/user-data";
+import { useCart } from "@/store/use-cart";
+import { useUserDataStore } from "@/store/user-data";
 import { validateUserData } from "@/utils/validateForms";
 
 import ProgressPoints from "./components/ProgressPoints";

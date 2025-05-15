@@ -7,23 +7,32 @@ import SkeletonScheme from "@/components/skeletonScheme";
 import ProductFilters from "@/components/products-filters";
 import { useProductFilters } from "@/hooks/use-filters";
 import { CategoryType } from "@/types/product";
-import { useGetCategories, useGetProductAll } from "@/api/usePeticionApi";
 import ProductCard from "./productsCard";
 import PaginationComponent from "./pagination";
+import { useCategoryStore } from "@/store/use-category";
+import { useProductStore } from "@/store/use-products"; // ✅ importamos el store
 
 const ProductsContent = () => {
   const searchParams = useSearchParams();
   const initialCategory = searchParams.get("category") || "";
 
-  const { loading, result: products } = useGetProductAll();
-  const { loading: loadingCategories, result: allCategories } =
-    useGetCategories();
+  // ✅ Zustand store de productos
+  const { products, loading, fetchProducts } = useProductStore();
 
+  // ✅ Zustand store de categorías
+  const {
+    categories: allCategories,
+    loading: loadingCategories,
+    fetchCategories,
+  } = useCategoryStore();
+
+  // ✅ Hook de filtros reutilizable
   const { filters, setFilters, categories, filteredProducts } =
-    useProductFilters(products || [], allCategories || []);
+    useProductFilters(products ?? [], allCategories ?? []);
 
   const [isCategoryChanging, setIsCategoryChanging] = useState(false);
 
+  // ✅ Ordena los productos con stock primero
   const filteredProductsMemo = useMemo(() => {
     return filteredProducts.sort((a, b) => {
       const aHasStock = a.size_stock.some((size) => size.stock > 0);
@@ -35,7 +44,21 @@ const ProductsContent = () => {
 
   const categoriesMemo = useMemo(() => categories, [categories]);
 
-  // Actualizar filtros al cambiar de categoría en la URL
+  // ✅ Trae productos si no hay
+  useEffect(() => {
+    if (!products) {
+      fetchProducts();
+    }
+  }, [products, fetchProducts]);
+
+  // ✅ Trae categorías si no hay
+  useEffect(() => {
+    if (!allCategories) {
+      fetchCategories();
+    }
+  }, [allCategories, fetchCategories]);
+
+  // ✅ Maneja cambio de categoría por URL
   useEffect(() => {
     if (
       initialCategory &&
@@ -43,19 +66,19 @@ const ProductsContent = () => {
         (cat: CategoryType) => cat.categoryName === initialCategory
       )
     ) {
-      setIsCategoryChanging(true); // Activa loading temporal
+      setIsCategoryChanging(true);
 
       setFilters((prev) => ({ ...prev, category: initialCategory }));
 
       const timeout = setTimeout(() => {
         setIsCategoryChanging(false);
-      }, 300); // Delay para mostrar skeleton
+      }, 300);
 
       return () => clearTimeout(timeout);
     }
   }, [initialCategory, allCategories, setFilters]);
 
-  // Paginación
+  // ✅ Paginación
   const [currentPage, setCurrentPage] = useState(1);
   const itemsPerPage = 6;
   const totalPages = Math.ceil(filteredProductsMemo.length / itemsPerPage);
@@ -70,16 +93,17 @@ const ProductsContent = () => {
   const onFilterChange = useCallback(
     (newFilters: any) => {
       setFilters(newFilters);
-      setCurrentPage(1); // Resetear página al aplicar filtros
+      setCurrentPage(1);
     },
     [setFilters]
   );
 
-  // Desplazar la página hacia arriba cada vez que cambie el número de página
+  // ✅ Scroll al top cuando cambia de página
   useEffect(() => {
     window.scrollTo(0, 0);
   }, [currentPage]);
 
+  // ✅ Loader mientras carga algo
   if (loading || loadingCategories || isCategoryChanging) {
     return (
       <div className="py-8 sm:py-16 sm:px-4 px-40 mx-auto max-w-screen-lg">
@@ -111,7 +135,7 @@ const ProductsContent = () => {
             <div
               key={product.id}
               data-aos="fade-up"
-              data-aos-delay={`${index * 100}`} // Añadir un retraso progresivo para crear un efecto en cascada
+              data-aos-delay={`${index * 100}`}
               data-aos-duration="200"
             >
               <ProductCard product={product} />

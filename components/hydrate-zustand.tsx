@@ -1,7 +1,7 @@
 "use client";
 
-import { useHomeData } from "@/hooks/use-homeData";
-import { useInfoData } from "@/hooks/use-info-data";
+import { useHomeData } from "@/store/use-homeData";
+import { useInfoData } from "@/store/use-info-data";
 
 import { ReactNode, useEffect } from "react";
 

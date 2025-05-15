@@ -1,6 +1,5 @@
 "use client";
 
-import { ResponseType } from "@/types/response";
 import {
   Carousel,
   CarouselContent,
@@ -14,12 +13,19 @@ import { Card, CardContent } from "./ui/card";
 import { Expand } from "lucide-react";
 import IconButton from "./icon-button";
 import { useRouter } from "next/navigation";
-
-import { useGetProductAll } from "@/api/usePeticionApi";
+import { useEffect } from "react";
+import { useProductStore } from "@/store/use-products";
 
 const FeaturedProducts = () => {
-  const { loading, result }: ResponseType = useGetProductAll();
   const router = useRouter();
+
+  const { loading, products, fetchProducts } = useProductStore();
+
+  useEffect(() => {
+    if (!products) {
+      fetchProducts();
+    }
+  }, [products, fetchProducts]);
 
   return (
     <div className="max-w-6xl w-[80%] py-14 px-6 mx-auto">
@@ -27,8 +33,8 @@ const FeaturedProducts = () => {
       <Carousel>
         <CarouselContent className="ml-2 md:ml-4">
           {loading && <SkeletonScheme grid={3} />}
-          {result != null &&
-            result.map((product: ProductType) => {
+          {products != null &&
+            products.map((product: ProductType) => {
               return (
                 <CarouselItem
                   key={product.id}
@@ -36,9 +42,9 @@ const FeaturedProducts = () => {
                 >
                   <div
                     className="p-1 w-full max-w-xs sm:max-w-sm md:max-w-md lg:max-w-lg xl:max-w-xl mx-auto"
-                    data-aos="fade-in" // Efecto fade-up
-                    data-aos-duration="700" // Duración de la animación
-                    data-aos-delay="300" // Retardo para la animación
+                    data-aos="fade-in"
+                    data-aos-duration="700"
+                    data-aos-delay="300"
                   >
                     <Card className="py-4 border border-gray-200 shadow-none">
                       <CardContent className="relative flex items-center justify-center px-6 py-2">

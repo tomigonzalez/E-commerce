@@ -6,7 +6,7 @@ import { Card, CardContent } from "@/components/ui/card";
 import IconButton from "@/components/icon-button";
 import { ProductType } from "@/types/product";
 import { formatPrice } from "@/lib/formatPrice";
-import { useCart } from "@/hooks/use-cart";
+import { useCart } from "@/store/use-cart";
 import { useEffect, useState } from "react";
 
 interface ProductCardProps {

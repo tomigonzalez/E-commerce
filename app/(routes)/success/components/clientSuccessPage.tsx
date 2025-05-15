@@ -1,7 +1,7 @@
 "use client";
 
 import { updateProductStock } from "@/api/usePeticionPutApi";
-import { useCart } from "@/hooks/use-cart";
+import { useCart } from "@/store/use-cart";
 import { useEffect } from "react";
 import { CheckCircle, XCircle, Clock } from "lucide-react";
 import { useSearchParams } from "next/navigation";
@@ -19,8 +19,6 @@ export default function ClientSuccessPage() {
       clearCart();
       localStorage.removeItem("cart-storage");
     }
-
-    // Ya no se necesita updateOrderStatus aquí, eso lo maneja el webhook
   }, [items, paymentStatus]);
 
   const renderMessage = () => {

@@ -1,6 +1,6 @@
 "use client";
 
-import { useHomeData } from "@/hooks/use-homeData";
+import { useHomeData } from "@/store/use-homeData";
 import React from "react";
 
 const GaleryHome = () => {

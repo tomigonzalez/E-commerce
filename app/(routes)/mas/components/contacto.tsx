@@ -1,6 +1,6 @@
 "use client";
 
-import { useInfoData } from "@/hooks/use-info-data";
+import { useInfoData } from "@/store/use-info-data";
 import { Phone, Mail, MapPin } from "lucide-react";
 import { FaInstagram, FaLinkedinIn, FaFacebookF } from "react-icons/fa";
 

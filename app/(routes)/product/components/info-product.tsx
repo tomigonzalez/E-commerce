@@ -2,7 +2,7 @@
 
 import { Button } from "@/components/ui/button";
 import { Separator } from "@/components/ui/separator";
-import { useCart } from "@/hooks/use-cart";
+import { useCart } from "@/store/use-cart";
 import { formatPrice } from "@/lib/formatPrice";
 import { ProductType, SizeStockType } from "@/types/product";
 import React, { useState } from "react";

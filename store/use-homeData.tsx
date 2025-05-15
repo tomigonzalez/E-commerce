@@ -5,7 +5,6 @@ interface Media {
   id: number;
   documentId: string;
   name: string;
-
   url: string;
 }
 
@@ -13,7 +12,7 @@ interface HomeData {
   tituloHero?: string;
   mostrarBannerDescuento?: boolean;
   bannerDescuentoTexto?: string;
-  imagenHero: Media[]; // Cambiamos string a un array de objetos Media
+  imagenHero: Media[];
   galeriaImg: Media[];
 }
 

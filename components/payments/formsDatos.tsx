@@ -1,4 +1,4 @@
-import { useUserDataStore } from "@/hooks/user-data";
+import { useUserDataStore } from "@/store/user-data";
 import { Button } from "../ui/button";
 
 type Props = {

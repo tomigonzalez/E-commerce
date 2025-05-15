@@ -4,8 +4,8 @@ import { validarStock } from "@/api/validateStock";
 import { usePostOrden } from "@/api/usePostOrden";
 import { normalizarOrden } from "@/utils/normalizarOrden";
 import api from "@/api/mpCheckout";
-import { useUserDataStore } from "@/hooks/user-data";
-import { useCart } from "@/hooks/use-cart";
+import { useUserDataStore } from "@/store/user-data";
+import { useCart } from "@/store/use-cart";
 import { toast } from "sonner";
 
 const Confirm = ({
@@ -76,6 +76,7 @@ const Confirm = ({
         });
         localStorage.removeItem("cart-storage");
         clearCart();
+        window.location.reload();
       } else {
         toast.error(
           "Hubo un problema al procesar tu pedido. Inténtalo nuevamente.",
