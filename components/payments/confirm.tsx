@@ -1,6 +1,6 @@
-import React, { useState } from "react";
+import React from "react";
 import { Button } from "../ui/button";
-import { validarStock } from "@/api/validateStock";
+import { validarStockYPrecios } from "@/api/validateStock";
 import { usePostOrden } from "@/api/usePostOrden";
 import { normalizarOrden } from "@/utils/normalizarOrden";
 import api from "@/api/mpCheckout";
@@ -22,15 +22,15 @@ const Confirm = ({
 
   const handleConfirmarOrden = async () => {
     try {
-      // Validar stock antes de continuar con la orden
-      await validarStock(items);
+      // Paso 1: Validar stock y precios desde el backend
+      await validarStockYPrecios(items);
 
-      // Continuar con la creación de la orden si el stock es válido
+      // Paso 2: Crear orden en estado pendiente
       const ordenConEstadoPendiente = {
         ...ordenNormalizada,
         estado: "pendiente",
       };
-
+      // Paso 3: Armar productos + envío y enviar a MercadoPago
       const ordenResponse = await postOrden(ordenConEstadoPendiente);
 
       if (ordenResponse?.data?.id) {
@@ -76,7 +76,6 @@ const Confirm = ({
         });
         localStorage.removeItem("cart-storage");
         clearCart();
-        window.location.reload();
       } else {
         toast.error(
           "Hubo un problema al procesar tu pedido. Inténtalo nuevamente.",
