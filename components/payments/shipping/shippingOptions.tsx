@@ -30,20 +30,31 @@ export const ShippingOption = ({
     ) || [];
 
   return (
-    <div className="border rounded p-4 shadow-sm space-y-2">
-      <h3 className="font-semibold">{opcion.serviceDescription}</h3>
-      <p>Carrier: {opcion.carrier}</p>
-      <p>Precio: ARS ${opcion.totalPrice.toFixed(2)}</p>
-      <p>Entrega estimada: {opcion.deliveryEstimate}</p>
+    <div className="border rounded p-4 shadow-sm space-y-2 bg-white dark:bg-gray-800 dark:border-gray-700">
+      <h3 className="font-semibold text-gray-900 dark:text-white">
+        {opcion.serviceDescription}
+      </h3>
+      <p className="text-gray-700 dark:text-gray-300">
+        Carrier: {opcion.carrier}
+      </p>
+      <p className="text-gray-700 dark:text-gray-300">
+        Precio: ARS ${opcion.totalPrice.toFixed(2)}
+      </p>
+      <p className="text-gray-700 dark:text-gray-300">
+        Entrega estimada: {opcion.deliveryEstimate}
+      </p>
 
       {opcion.dropOff > 0 && filteredBranches.length > 0 && (
         <div>
-          <Label htmlFor={`branch-select-${idx}`}>
+          <Label
+            htmlFor={`branch-select-${idx}`}
+            className="text-gray-700 dark:text-gray-300"
+          >
             Seleccioná una sucursal o punto de retiro
           </Label>
           <select
             id={`branch-select-${idx}`}
-            className="mt-1 block w-full border-gray-300 rounded-md shadow-sm"
+            className="mt-1 block w-full border-gray-300 dark:border-gray-600 dark:bg-gray-900 dark:text-white rounded-md shadow-sm"
             value={selectedBranchId}
             onChange={(e) => setSelectedBranchId(e.target.value)}
           >
@@ -60,7 +71,11 @@ export const ShippingOption = ({
 
       <Button
         variant="outline"
-        className={`mt-2 ${isSelected ? "border-green-500" : ""}`}
+        className={`mt-2 border transition-colors ${
+          isSelected
+            ? "border-green-500 dark:border-green-400"
+            : "border-gray-300 dark:border-gray-700"
+        }`}
         onClick={handleSelect}
         disabled={opcion.dropOff > 0 && !selectedBranchId}
       >

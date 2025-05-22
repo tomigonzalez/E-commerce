@@ -46,7 +46,7 @@ const FeaturedProducts = () => {
                     data-aos-duration="700"
                     data-aos-delay="300"
                   >
-                    <Card className="py-4 border border-gray-200 shadow-none">
+                    <Card className="py-4 border-none rounded-[2rem]">
                       <CardContent className="relative flex items-center justify-center px-6 py-2">
                         <img
                           loading="lazy"
@@ -56,11 +56,27 @@ const FeaturedProducts = () => {
                               : "/subirImg.jpg"
                           }
                           alt={product.productName}
-                          className="object-contain max-h-60 w-full rounded-md"
+                          className="object-contain max-h-60 w-full rounded-[2rem]"
                         />
-                        <div className="absolute w-full px-6 transition duration-200 opacity-0 group-hover:opacity-100 bottom-5">
+                      </CardContent>
+
+                      <div className="flex flex-col gap-2 px-6 pt-2 items-center">
+                        <h3 className="text-lg font-bold">
+                          {product.productName}
+                        </h3>
+
+                        <div className="flex justify-center flex-wrap gap-2 sm:gap-3">
+                          <div className="flex flex-wrap gap-4 justify-center">
+                            <p className="px-2 py-1 text-white bg-black rounded-full dark:bg-white dark:text-black w-fit text-sm">
+                              {product.category?.categoryName ?? "categoría"}
+                            </p>
+                            <h5 className="px-2 py-1 text-black  rounded-full w-fit text-sm">
+                              {product.sub_category?.subCategoryName ??
+                                "subcategoría"}
+                            </h5>
+                          </div>
                           <div
-                            className="flex justify-center gap-x-6"
+                            className="flex w-full justify-center gap-x-6"
                             title="Abrir producto"
                           >
                             <IconButton
@@ -71,22 +87,6 @@ const FeaturedProducts = () => {
                               className="text-gray-600 cursor-pointer"
                             />
                           </div>
-                        </div>
-                      </CardContent>
-
-                      <div className="flex flex-col gap-2 px-6 pt-2">
-                        <h3 className="text-lg font-bold">
-                          {product.productName}
-                        </h3>
-
-                        <div className="flex flex-wrap items-center gap-2 sm:gap-3">
-                          <p className="px-2 py-1 text-white bg-black rounded-full dark:bg-white dark:text-black w-fit text-sm">
-                            {product.category?.categoryName ?? "categoría"}
-                          </p>
-                          <p className="px-2 py-1 text-white bg-defaultUser rounded-full w-fit text-sm">
-                            {product.sub_category?.subCategoryName ??
-                              "subcategoría"}
-                          </p>
                         </div>
                       </div>
                     </Card>

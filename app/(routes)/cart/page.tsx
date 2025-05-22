@@ -16,15 +16,19 @@ export default function Page() {
   }, 0);
 
   function handleCheckout() {
-    router.push("/checkout"); // <- Redirigimos al checkout
+    router.push("/checkout");
   }
 
   return (
-    <div className="max-w-6xl px-4 py-16 mx-auto sm:px-6 lg:px-8">
+    <div className="max-w-6xl px-4 py-16 mx-auto sm:px-6 lg:px-8 text-gray-800 dark:text-gray-200">
       <h1 className="mb-5 text-3xl font-bold">Shopping Cart</h1>
       <div className="grid sm:grid-cols-2 sm:gap-5">
         <div>
-          {items.length === 0 && <p>No hay productos en el carrito</p>}
+          {items.length === 0 && (
+            <p className="text-gray-600 dark:text-gray-400">
+              No hay productos en el carrito
+            </p>
+          )}
           <ul>
             {items.map((item) => (
               <CartItem
@@ -35,15 +39,15 @@ export default function Page() {
           </ul>
         </div>
         <div className="max-w-xl">
-          <div className="p-6 rounded-lg bg-slate-100">
+          <div className="p-6 rounded-lg bg-slate-100 dark:bg-slate-800 shadow">
             <p className="mb-3 text-lg font-semibold">Resumen de Orden</p>
             <Separator />
             <div className="flex justify-between gap-5 my-4">
-              <p>Order total</p>
+              <p>Total del pedido</p>
               <p>{formatPrice(totalPrice)}</p>
             </div>
             <div className="flex items-center justify-center w-full mt-3">
-              <Button className="w-full btn-primary " onClick={handleCheckout}>
+              <Button className="w-full btn-primary" onClick={handleCheckout}>
                 Comprar
               </Button>
             </div>

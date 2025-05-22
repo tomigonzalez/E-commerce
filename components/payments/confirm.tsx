@@ -22,15 +22,13 @@ const Confirm = ({
 
   const handleConfirmarOrden = async () => {
     try {
-      // Paso 1: Validar stock y precios desde el backend
       await validarStockYPrecios(items);
 
-      // Paso 2: Crear orden en estado pendiente
       const ordenConEstadoPendiente = {
         ...ordenNormalizada,
         estado: "pendiente",
       };
-      // Paso 3: Armar productos + envío y enviar a MercadoPago
+
       const ordenResponse = await postOrden(ordenConEstadoPendiente);
 
       if (ordenResponse?.data?.id) {
@@ -70,7 +68,7 @@ const Confirm = ({
       if (error instanceof Error) {
         toast.error(error.message, {
           style: {
-            backgroundColor: "#F56565", // rojo
+            backgroundColor: "#F56565",
             color: "#fff",
           },
         });
@@ -91,11 +89,13 @@ const Confirm = ({
   };
 
   return (
-    <div className="p-6 space-y-6 bg-white rounded shadow max-w-3xl mx-auto">
+    <div className="p-6 space-y-6 bg-white dark:bg-gray-900 rounded shadow max-w-3xl mx-auto text-gray-900 dark:text-gray-100">
       <h2 className="text-2xl font-bold">Confirmación de Orden</h2>
 
       <div>
-        <h3 className="font-medium text-gray-700 mb-1">Datos del Cliente</h3>
+        <h3 className="font-medium text-gray-700 dark:text-gray-300 mb-1">
+          Datos del Cliente
+        </h3>
         <p>
           {ordenNormalizada.nombre} {ordenNormalizada.apellido}
         </p>
@@ -105,7 +105,9 @@ const Confirm = ({
       </div>
 
       <div>
-        <h3 className="font-medium text-gray-700 mb-1">Dirección de Envío</h3>
+        <h3 className="font-medium text-gray-700 dark:text-gray-300 mb-1">
+          Dirección de Envío
+        </h3>
         <p>{ordenNormalizada.direccion}</p>
         <p>
           {ordenNormalizada.localidad} (CP: {ordenNormalizada.codigoPostal})
@@ -113,29 +115,31 @@ const Confirm = ({
       </div>
 
       <div>
-        <h3 className="font-medium text-gray-700 mb-1">Método de Envío</h3>
+        <h3 className="font-medium text-gray-700 dark:text-gray-300 mb-1">
+          Método de Envío
+        </h3>
         <p>Servicio: {ordenNormalizada.envio?.servicio}</p>
         <p>Transportista: {ordenNormalizada.envio?.transportista}</p>
-        <p>Costo: ${ordenNormalizada.envio?.precio?.toLocaleString()}</p>
+        <p>Costo: ${ordenNormalizada.envio?.precio?.toLocaleString("es-AR")}</p>
       </div>
 
-      <div className="border-t pt-4">
+      <div className="border-t border-gray-200 dark:border-gray-700 pt-4">
         <p className="text-lg font-semibold">
-          Total a pagar: ${ordenNormalizada.total.toLocaleString()}
+          Total a pagar: ${ordenNormalizada.total.toLocaleString("es-AR")}
         </p>
       </div>
 
       <div className="flex gap-2">
         <Button
           onClick={handleBack}
-          className="px-4 py-2 bg-gray-200 text-gray-800 rounded cursor-pointer hover:bg-gray-300"
+          className="px-4 py-2 bg-gray-200 text-gray-800 rounded cursor-pointer hover:bg-gray-300 dark:bg-gray-700 dark:text-white dark:hover:bg-gray-600"
         >
           Atrás
         </Button>
         <button
           onClick={handleConfirmarOrden}
           disabled={loading}
-          className="px-4 py-2 bg-black text-white rounded hover:bg-gray-800 disabled:opacity-50"
+          className="px-4 py-2 bg-black text-white rounded hover:bg-gray-800 disabled:opacity-50 dark:bg-green-600 dark:hover:bg-green-500"
         >
           {loading ? "Procesando..." : "Confirmar y Pagar"}
         </button>

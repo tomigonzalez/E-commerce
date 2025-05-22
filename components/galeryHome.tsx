@@ -27,7 +27,7 @@ const GaleryHome = () => {
           <a
             key={image.id || index}
             href="#"
-            className={`group relative flex h-48 items-end overflow-hidden rounded-lg bg-gray-100 shadow-lg ${
+            className={`group relative flex h-48 items-end overflow-hidden rounded-[3rem] bg-gray-100 shadow-lg ${
               index === 1 || index === 2 ? "md:col-span-2" : ""
             } md:h-80`}
             data-aos="fade-up"

@@ -51,7 +51,7 @@ const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
   };
 
   return (
-    <Card className="border border-gray-200 shadow-sm p-6">
+    <Card className="border rounded-[2rem] border-gray-200 shadow-sm p-6">
       <CardContent className="flex flex-col items-center">
         <img
           src={
@@ -60,17 +60,14 @@ const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
               : "/subirImg.jpg"
           }
           alt={product.productName}
-          className="w-full h-40 object-contain"
+          className="w-full h-40 object-contain rounded-[2rem]"
         />
 
-        <h3 className="text-lg font-bold mt-4">{product.productName}</h3>
+        <h3 className=" sm:text-xxl   font-bold mt-4">{product.productName}</h3>
 
-        <div className="flex gap-3 mt-2 text-sm">
-          <p className="bg-black text-white px-2 py-1 rounded-full">
+        <div className="flex gap-3 mt-2">
+          <p className="bg-defaultUser text-sm text-white px-2 py-1 rounded-full">
             {product.category?.categoryName ?? "Categoría"}
-          </p>
-          <p className="bg-defaultUser text-white px-2 py-1 rounded-full">
-            {product.sub_category?.subCategoryName ?? "Subcategoría"}
           </p>
         </div>
 

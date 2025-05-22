@@ -48,7 +48,7 @@ export default function Home() {
                 e.currentTarget.src = "/BannerSubir.jpg";
               }}
               alt="Hero"
-              className="w-full h-full object-cover"
+              className="w-full h-full object-cover rounded-b-[8rem]"
             />
             <div className="absolute inset-0">
               <CarouselTextBanner />

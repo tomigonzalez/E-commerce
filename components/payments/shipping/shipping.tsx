@@ -24,7 +24,7 @@ const Shipping = ({
     codigoPostal,
     setUserData,
   } = useUserDataStore();
-  const [postalCode, setPostalCode] = useState(codigoPostal || ""); // Inicializar con el código postal ya cargado
+  const [postalCode, setPostalCode] = useState(codigoPostal || "");
   const [selectedOption, setSelectedOption] = useState<any>(null);
   const [hasSubmitted, setHasSubmitted] = useState(false);
 
@@ -47,8 +47,6 @@ const Shipping = ({
 
     setHasSubmitted(true);
     cotizar(destinatario, postalCode);
-
-    // Actualizar el código postal en el store
     setUserData({ codigoPostal: postalCode });
   };
 
@@ -72,18 +70,20 @@ const Shipping = ({
       : [retiroEnLocalOption];
 
   return (
-    <div className="max-w-md mx-auto p-6 bg-white border shadow-md rounded-xl">
-      <h2 className="text-xl font-semibold mb-4 text-center text-gray-800">
+    <div className="max-w-md mx-auto p-6 bg-white dark:bg-gray-900 border dark:border-gray-700 shadow-md rounded-xl">
+      <h2 className="text-xl font-semibold mb-4 text-center text-gray-800 dark:text-gray-100">
         Ingresá tu Código Postal para cotizar el envío
       </h2>
 
-      <Label htmlFor="postalCode">Código Postal</Label>
+      <Label htmlFor="postalCode" className="dark:text-gray-200">
+        Código Postal
+      </Label>
       <Input
         id="postalCode"
         value={postalCode}
         onChange={(e) => setPostalCode(e.target.value)}
         placeholder="Ej: 1425"
-        className={error ? "border-red-500" : ""}
+        className={`${error ? "border-red-500" : ""} dark:bg-gray-800 dark:text-white dark:border-gray-700`}
       />
       {error && <p className="text-sm text-red-500 mt-1">{error}</p>}
 
@@ -102,7 +102,7 @@ const Shipping = ({
               isSelected={
                 selectedOption?.serviceDescription === res.serviceDescription
               }
-              ciudadUsuario={localidad} // Aquí pasamos la ciudad del usuario
+              ciudadUsuario={localidad}
             />
           ))}
         </div>

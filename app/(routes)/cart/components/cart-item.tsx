@@ -48,7 +48,7 @@ const CartItem = ({ product }: CartItemProps) => {
           src={imageUrl}
           alt={product.productName}
           loading="lazy"
-          className="w-24 h-24 sm:w-32 sm:h-32 object-cover rounded-lg border"
+          className="w-24  h-24 sm:w-32 sm:h-32 object-cover  rounded-[2rem] border"
         />
       </div>
 
