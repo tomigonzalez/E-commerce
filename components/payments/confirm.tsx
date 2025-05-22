@@ -3,10 +3,11 @@ import { Button } from "../ui/button";
 import { validarStockYPrecios } from "@/api/validateStock";
 import { usePostOrden } from "@/api/usePostOrden";
 import { normalizarOrden } from "@/utils/normalizarOrden";
-import api from "@/api/mpCheckout";
+
 import { useUserDataStore } from "@/store/user-data";
 import { useCart } from "@/store/use-cart";
 import { toast } from "sonner";
+import api from "@/api/mpCheckout";
 
 const Confirm = ({
   handleBack,

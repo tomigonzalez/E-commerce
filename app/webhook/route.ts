@@ -1,36 +1,16 @@
 import { updateOrderStatus } from "@/api/usePutOrden";
 import { NextResponse } from "next/server";
-import crypto from "crypto";
 
 export async function POST(req: Request) {
-  console.log("🚨 Webhook ha llegado");
-
-  const signatureHeader = req.headers.get("x-signature");
-  const secret = process.env.MP_WEBHOOK_SECRET;
-
-  if (!secret || !signatureHeader) {
-    console.warn("❌ Webhook sin clave o firma");
-    return NextResponse.json({ error: "No autorizado" }, { status: 401 });
-  }
-
-  const rawBody = await req.text(); // usamos texto sin parsear para firmar
-  const localSignature = crypto
-    .createHmac("sha256", secret)
-    .update(rawBody)
-    .digest("hex");
-
-  if (localSignature !== signatureHeader) {
-    console.warn("❌ Firma inválida. Webhook rechazado.");
-    return NextResponse.json({ error: "Firma inválida" }, { status: 401 });
-  }
-
+  console.log("🚨 Webhook ha llegado");  // Agrega este log para confirmar que el webhook llega
+  
   try {
-    const body = JSON.parse(rawBody); // lo parseamos después de validar
-
+    const body = await req.json();
+    
     const paymentId = body.data?.id;
     if (!paymentId) {
       return NextResponse.json(
-        { error: "ID de pago no encontrado" },
+        { error: "Pago no encontrado" },
         { status: 400 }
       );
     }
@@ -46,34 +26,38 @@ export async function POST(req: Request) {
     );
 
     const paymentData = await paymentResponse.json();
+    
 
-    const ordenStrapiId = paymentData.metadata?.ordenStrapiId;
+    const ordenStrapiId = paymentData.metadata?.orden_strapi_id;
     const status = paymentData.status;
 
+    // Validamos si no se encontró ordenStrapiId
     if (!ordenStrapiId) {
       console.warn("⚠️ No se encontró ordenStrapiId en metadata");
       return NextResponse.json({ message: "Sin orden asociada" }, { status: 200 });
     }
-
+    
+    
     let nuevoEstado = "pendiente";
     if (status === "approved") {
       nuevoEstado = "confirmado";
-      console.log("✅ Pago aprobado");
+      console.log("✅ El pago fue aprobado, cambiando estado a 'confirmado'");
     } else if (status === "rejected") {
       nuevoEstado = "cancelado";
-      console.log("❌ Pago rechazado");
+      console.log("❌ El pago fue rechazado, cambiando estado a 'cancelado'");
     } else if (status === "in_process") {
       nuevoEstado = "pendiente";
-      console.log("🔄 Pago en proceso");
+      console.log("🔄 El pago está en proceso, manteniendo estado 'pendiente'");
     } else {
-      console.warn(`⚠️ Estado desconocido: ${status}`);
+      console.warn(`⚠️ Estado de pago no manejado: ${status}`);
     }
 
+   
     await updateOrderStatus(ordenStrapiId, nuevoEstado);
 
-    return NextResponse.json({ message: "Webhook procesado con éxito" }, { status: 200 });
+    return NextResponse.json({ message: "Webhook procesado" }, { status: 200 });
   } catch (error) {
     console.error("❌ Error procesando el webhook:", error);
-    return NextResponse.json({ error: "Error interno del servidor" }, { status: 500 });
+    return NextResponse.json({ error: "Error en el webhook" }, { status: 500 });
   }
 }

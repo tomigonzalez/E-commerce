@@ -9,52 +9,18 @@ const api = {
   product: {
     async submit(products: Product[], ordenStrapiId: string) {
       try {
-        const items = products.map((product) => ({
-          id: product.id.toString(),
-          title: product.productName,
-          quantity: product.quantity,
-          unit_price: product.price,
-          currency_id: "ARS",
-        }));
-
-        console.log("🛒 Enviando productos a MercadoPago:", items);
-
-        const response = await fetch(
-          "https://api.mercadopago.com/checkout/preferences",
-          {
-            method: "POST",
-            headers: {
-              "Content-Type": "application/json",
-              Authorization: `Bearer ${process.env.MP_ACCESS_TOKEN}`,
-            },
-            body: JSON.stringify({
-              items,
-              back_urls: {
-                success: `${process.env.NEXT_PUBLIC_WEB_MP}/success`,
-                failure: `${process.env.NEXT_PUBLIC_WEB_MP}/success`,
-                pending: `${process.env.NEXT_PUBLIC_WEB_MP}/success`,
-              },
-              notification_url: `${process.env.NEXT_PUBLIC_WEB_MP}/webhook`,
-              auto_return: "approved",
-              metadata: {
-                ordenStrapiId,
-                products: items.map((item) => ({
-                  id: item.id,
-                  quantity: item.quantity,
-                  price: item.unit_price,
-                })),
-              },
-            }),
-          }
-        );
+        const response = await fetch("/api/crear-preferencia", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({ products, ordenStrapiId }),
+        });
 
         const data = await response.json();
-        console.log("✅ Respuesta de MercadoPago:", data);
 
         if (!response.ok || !data.init_point) {
-          throw new Error(
-            `Error en MercadoPago: ${data.message || "No se pudo obtener el enlace de pago"}`
-          );
+          throw new Error(data.error || "No se pudo obtener el enlace de pago");
         }
 
         return data.init_point;
