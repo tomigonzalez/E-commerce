@@ -40,7 +40,7 @@ export async function POST(req: Request) {
       {
         method: "GET",
         headers: {
-          Authorization: `Bearer ${process.env.NEXT_PUBLIC_MP_ACCESS_TOKEN}`,
+          Authorization: `Bearer ${process.env.MP_ACCESS_TOKEN}`,
         },
       }
     );
