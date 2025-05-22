@@ -63,7 +63,7 @@ const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
           className="w-full h-40 object-contain rounded-[2rem]"
         />
 
-        <h3 className=" sm:text-xxl   font-bold mt-4">{product.productName}</h3>
+        <h3 className=" sm:text-xl   font-bold mt-4">{product.productName}</h3>
 
         <div className="flex gap-3 mt-2">
           <p className="bg-defaultUser text-sm text-white px-2 py-1 rounded-full">
@@ -71,7 +71,7 @@ const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
           </p>
         </div>
 
-        <p className="text-xl mt-4">{formatPrice(product.price)}</p>
+        <p className="text-lg mt-4">{formatPrice(product.price)}</p>
 
         <div className="flex flex-wrap gap-2 mt-3">
           {product.size_stock.map(({ id, size, stock }) => (
