@@ -12,34 +12,34 @@ import Autoplay from "embla-carousel-autoplay";
 
 const reviews = [
   {
-    name: "María",
+    name: "Reseña",
 
     rating: 5,
-    comment: "¡Producto increíble! Superó mis expectativas.",
+    comment: "Lorem Ipsum is simply dummy text of the printing .",
   },
   {
-    name: "Carlos",
+    name: "Reseña",
 
     rating: 4,
-    comment: "Muy bueno, aunque el envío tardó un poco.",
+    comment: "Lorem Ipsum is simply dummy text of the printing .",
   },
   {
-    name: "Lucía",
+    name: "Reseña",
 
     rating: 5,
-    comment: "Me encantó la calidad, definitivamente volveré a comprar.",
+    comment: "Lorem Ipsum is simply dummy text of the printing .",
   },
   {
-    name: "Pedro",
+    name: "Reseña",
 
     rating: 3,
-    comment: "Está bien, pero esperaba algo más.",
+    comment: "Lorem Ipsum is simply dummy text of the printing .",
   },
   {
-    name: "Ana",
+    name: "Reseña",
 
     rating: 5,
-    comment: "Excelente atención y producto de primera calidad.",
+    comment: "Lorem Ipsum is simply dummy text of the printing .",
   },
 ];
 
