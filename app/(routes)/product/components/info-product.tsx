@@ -32,15 +32,15 @@ const InfoProduct = ({ product }: InfoProductProps) => {
 
   return (
     <div className="px-6">
-      <div className="justify-between mb-3 sm:flex">
+      <div className="justify-between mb-3 sm:flex items-center">
         <h1 className="text-2xl">{product.productName}</h1>
 
-        <div className="flex mt-2 items-center justify-between gap-3">
+        <div className="flex lg:flex-col mt-2 items-left gap-3">
           <p className="px-2 py-1 text-xs text-white bg-black rounded-full dark:bg-white dark:text-black w-fit">
             {product.category.categoryName}
           </p>
-          <p className="px-2 py-1 text-xs text-white bg-defaultUser rounded-full">
-            {product.sub_category?.subCategoryName}
+          <p className="px-2 py-1 text-xs text-white bg-defaultUser rounded-full w-fit">
+            {product.sub_category?.subCategoryName ?? "subcategoría"}
           </p>
         </div>
       </div>

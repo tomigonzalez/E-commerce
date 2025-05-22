@@ -27,7 +27,15 @@ export default async function Page({
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 ">
         <div className="lg:col-span-2 w-full">
           <div className="w-[80%] max-w-full mx-auto">
-            {product.images && <CarouselProduct images={product.images} />}
+            {product.images && product.images.length > 0 ? (
+              <CarouselProduct images={product.images} />
+            ) : (
+              <img
+                src="/subirImg.jpg"
+                alt="Imagen no disponible"
+                className="w-full h-auto object-contain rounded-2xl"
+              />
+            )}
           </div>
         </div>
 
