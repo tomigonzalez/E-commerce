@@ -17,6 +17,7 @@ import SkeletonScheme from "./skeletonScheme";
 
 import { useProductStore } from "@/store/use-products";
 import { ProductType } from "@/types/product";
+import Image from "next/image";
 
 const FeaturedProducts = () => {
   const router = useRouter();
@@ -51,7 +52,7 @@ const FeaturedProducts = () => {
               >
                 <Card className="py-4 border rounded-[2rem] shadow-sm bg-white dark:bg-gray-800 dark:border-gray-700">
                   <CardContent className="relative flex items-center justify-center px-6 py-2">
-                    <img
+                    <Image
                       loading="lazy"
                       src={
                         product.images?.length

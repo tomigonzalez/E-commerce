@@ -3,6 +3,7 @@
 import { ProductType } from "@/types/product";
 import { formatPrice } from "@/lib/formatPrice";
 import React from "react";
+import Image from "next/image";
 
 interface CartSummaryItemProps {
   product: ProductType & { quantity: number; sizeSelected: string }; // Usamos `selectedSize` en lugar de `sizeSelected`
@@ -17,7 +18,7 @@ const CartSummaryItem = ({ product }: CartSummaryItemProps) => {
   return (
     <li className="flex flex-col sm:flex-row p-4 border-b dark:border-zinc-700">
       <div className="mb-3 sm:mb-0">
-        <img
+        <Image
           loading="lazy"
           src={
             product.images && product.images[0]?.url

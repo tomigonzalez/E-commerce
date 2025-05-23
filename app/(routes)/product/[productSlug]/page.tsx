@@ -3,6 +3,7 @@ import { notFound } from "next/navigation";
 import { ProductType } from "@/types/product";
 import CarouselProduct from "../components/carousel-product";
 import InfoProduct from "../components/info-product";
+import Image from "next/image";
 
 export default async function Page({
   params,
@@ -30,7 +31,7 @@ export default async function Page({
             {product.images && product.images.length > 0 ? (
               <CarouselProduct images={product.images} />
             ) : (
-              <img
+              <Image
                 src="/subirImg.jpg"
                 alt="Imagen no disponible"
                 className="w-full h-auto object-contain rounded-2xl"

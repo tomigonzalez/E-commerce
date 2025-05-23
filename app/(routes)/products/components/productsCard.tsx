@@ -8,6 +8,7 @@ import { ProductType } from "@/types/product";
 import { formatPrice } from "@/lib/formatPrice";
 import { useCart } from "@/store/use-cart";
 import { useEffect, useState } from "react";
+import Image from "next/image";
 
 interface ProductCardProps {
   product: ProductType;
@@ -53,7 +54,7 @@ const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
   return (
     <Card className="border rounded-[2rem] border-gray-200 shadow-sm p-6">
       <CardContent className="flex flex-col items-center">
-        <img
+        <Image
           src={
             product.images?.[0]
               ? `${process.env.NEXT_PUBLIC_BACKEND_URL}${product.images[0].url}`
