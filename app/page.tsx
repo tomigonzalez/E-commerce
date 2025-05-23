@@ -60,7 +60,7 @@ export default function Home() {
 
       <BannerDiscount />
       <FeaturedProducts />
-      <div className="w-full flex justify-center mt-4 mb-8">
+      <div className="w-full flex justify-center mb-10">
         <Link
           href="/products"
           data-aos="fade-in"
