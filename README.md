@@ -1,36 +1,65 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+🛒 E-commerce Argentina
 
-## Getting Started
+Tienda online desarrollada desde cero para el mercado argentino 🇦🇷, enfocada en ofrecer una experiencia real de e-commerce, moderna, escalable y optimizada para todos los dispositivos.
 
-First, run the development server:
+💡 Sobre el proyecto
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+Este proyecto fue creado principalmente como práctica personal y de aprendizaje, pero está construido con tecnologías sólidas y funcionalidades reales, por lo que también podría adaptarse como solución freelance si se presenta la oportunidad.
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+🔧 Stack utilizado
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+Next.js + TypeScript para un frontend moderno y veloz.
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+Tailwind CSS para un diseño totalmente responsive.
 
-## Learn More
+Strapi + PostgreSQL (en Supabase) como CMS y base de datos flexible.
 
-To learn more about Next.js, take a look at the following resources:
+Zustand para el manejo global del estado.
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+React Query para la gestión eficiente de datos asíncronos.
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+🛍️ Funcionalidades actuales
 
-## Deploy on Vercel
+Gestión completa de productos con talles y stock individual.
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+Organización por categorías y subcategorías desde Strapi.
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+Cotización de envíos en tiempo real según código postal (API externa).
+
+Pasarela de pagos integrada con MercadoPago.
+
+Carrito persistente y flujo de compra completo.
+
+Diseño 100% responsive, pensado para móviles y escritorio.
+
+Desarrollo con foco en seguridad, modularidad y buenas prácticas.
+
+🔜 Próximamente
+
+Registro e inicio de sesión con autenticación y autorización.
+
+Mejoras UX/UI para una experiencia aún más fluida.
+
+Panel de usuario para gestión de pedidos y direcciones.
+
+📦 Infraestructura
+
+Backend desplegado en Render.
+
+CMS y base de datos alojados en Supabase.
+
+Frontend desplegado en Vercel.
+
+⚠️ Nota
+
+La demo puede tener algunas demoras iniciales, ya que actualmente se están utilizando servicios gratuitos de hosting.
+
+🚀 Links
+
+🔗 Demo
+
+💻 GitHub
+
+📬 Contacto
+
+Si te interesa este tipo de desarrollo para tu negocio o querés dar feedback, ¡me encantaría charlar!
