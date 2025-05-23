@@ -8,6 +8,7 @@ import GaleryHome from "@/components/galeryHome";
 import { useHomeData } from "@/store/use-homeData";
 import SkeletonScheme from "@/components/skeletonScheme";
 import AOS from "aos";
+import Link from "next/link";
 
 export default function Home() {
   const homeData = useHomeData((state) => state.data);
@@ -59,6 +60,15 @@ export default function Home() {
 
       <BannerDiscount />
       <FeaturedProducts />
+      <div className="w-full flex justify-center mt-8">
+        <Link
+          href="/products"
+          data-aos="fade-in"
+          className="text-lg font-semibold text-primary animate-pulse hover:animate-none hover:underline transition-all duration-2200"
+        >
+          Ver más productos
+        </Link>
+      </div>
       <GaleryHome />
       <BannerProduct />
     </main>
