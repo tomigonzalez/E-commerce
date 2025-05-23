@@ -56,10 +56,8 @@ La demo puede tener algunas demoras iniciales, ya que actualmente se están util
 
 🚀 Links
 
-🔗 Demo
+🔗 Demo: https://e-commerce-ashy-three-76.vercel.app/
 
-💻 GitHub
-
-📬 Contacto
+📬 Contacto: https://portafolio-indol.vercel.app/
 
 Si te interesa este tipo de desarrollo para tu negocio o querés dar feedback, ¡me encantaría charlar!
