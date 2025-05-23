@@ -1,7 +1,6 @@
 "use client";
 
 import { useHomeData } from "@/store/use-homeData";
-import Image from "next/image";
 import React from "react";
 
 const GaleryHome = () => {
@@ -34,7 +33,7 @@ const GaleryHome = () => {
             data-aos="fade-up"
             data-aos-delay={`${index * 150}`}
           >
-            <Image
+            <img
               loading="lazy"
               src={
                 image?.url && image.url.trim() !== ""
