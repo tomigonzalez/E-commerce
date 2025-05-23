@@ -6,6 +6,7 @@ import {
   CarouselPrevious,
 } from "@/components/ui/carousel";
 import { ImageType } from "@/types/product";
+import Image from "next/image";
 import React from "react";
 
 interface CarouselPRoductProps {
@@ -19,7 +20,7 @@ const CarouselProduct = (props: CarouselPRoductProps) => {
         <CarouselContent>
           {props.images.map((image) => (
             <CarouselItem key={image.id}>
-              <img
+              <Image
                 loading="lazy"
                 src={`${process.env.NEXT_PUBLIC_BACKEND_URL}${image.url}`}
                 alt="Image product"
