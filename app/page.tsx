@@ -63,9 +63,7 @@ export default function Home() {
       <div className="w-full flex justify-center mb-10">
         <Link
           href="/products"
-          data-aos="fade-in"
-          data-aos-duration="700"
-          data-aos-delay="300"
+          data-aos="fade-up"
           className="text-lg font-semibold text-primary animate-pulse hover:animate-none hover:underline transition-all duration-2200"
         >
           Ver más productos
